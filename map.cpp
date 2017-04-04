@@ -35,8 +35,8 @@ void Map::createMap()
 void Map::drawMap(QGraphicsScene* scene)
 {
 
-    for(int i = 0; i < this->background->size(); i++) {
+    for(int i = 0; i < this->background->size(); i++)
         this->background->at(i)->drawElement(scene);
-    }
+
 
 }

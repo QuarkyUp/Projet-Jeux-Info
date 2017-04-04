@@ -12,6 +12,7 @@ public:
     QPixmap* getPixmap();
     QGraphicsPixmapItem* getPixmapItem();
 
+    /** UTILITE DES GETTERS/SETTERS ?? **/
     qreal getCoordX();
     qreal getCoordY();
     void setCoordX(qreal newCoordX);
@@ -23,6 +24,7 @@ private:
     QString path;
     QPixmap* pixmap;
 
+    /** ?? **/
     qreal coordX;
     qreal coordY;
 };

@@ -3,17 +3,28 @@
 #include <QGraphicsScene>
 #include <QDebug>
 #include <QGraphicsView>
+#include <QKeyEvent>
+
 #include "personnage.h"
 #include "sprite.h"
 
-class Player : public Personnage
+class Player : public Personnage, public QWidget
 {
 public:
+    /** CONSTRUCTOR **/
     static Player* newPlayer(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene);
-    void moveRightPlayer();
-    void moveLeftPlayer();
-    void moveUpPlayer();
-    void moveDownPlayer();
+
+    /** METHODS **/
+//    void moveRightPlayer();
+//    void moveLeftPlayer();
+//    void moveUpPlayer();
+//    void moveDownPlayer();
+      qreal getXpos();
+      qreal getYpos();
+
+    /** GETTERS **/
+    Sprite* getSprite();
+
 private:
     Player(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene);
     void drawPlayer(QGraphicsScene* scene);

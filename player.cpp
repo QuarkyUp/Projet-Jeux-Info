@@ -1,4 +1,5 @@
 #include "player.h"
+#include <QDebug>
 
 Player* Player::playerInstance;
 
@@ -22,24 +23,40 @@ void Player::drawPlayer(QGraphicsScene* scene)
 
 }
 
-void Player::moveRightPlayer()
+Sprite* Player::getSprite()
 {
-    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX() + 50, this->playerSprite->getCoordY());
+    return this->playerSprite;
 }
 
-void Player::moveLeftPlayer()
+qreal Player::getXpos()
 {
-    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX() - 50, this->playerSprite->getCoordY());
+    return this->getSprite()->getPixmapItem()->x();
 }
 
-void Player::moveUpPlayer()
+qreal Player::getYpos()
 {
-    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX(), this->playerSprite->getCoordY() - 50);
+    return this->getSprite()->getPixmapItem()->y();
 }
 
-void Player::moveDownPlayer()
-{
-    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX(), this->playerSprite->getCoordY() + 50);
-}
+//void Player::moveRightPlayer()
+//{
+//    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX() + 50, this->playerSprite->getCoordY());
+//}
+
+//void Player::moveLeftPlayer()
+//{
+//    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX() - 50, this->playerSprite->getCoordY());
+//}
+
+//void Player::moveUpPlayer()
+//{
+//    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX(), this->playerSprite->getCoordY() - 50);
+//}
+
+//void Player::moveDownPlayer()
+//{
+//    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX(), this->playerSprite->getCoordY() + 50);
+//}
+
 
 
