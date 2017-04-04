@@ -14,7 +14,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     map.cpp \
-    personnage.cpp \
     player.cpp \
     ennemi.cpp \
     element.cpp \
@@ -27,7 +26,6 @@ SOURCES += main.cpp \
 
 HEADERS  += \
     map.h \
-    personnage.h \
     player.h \
     ennemi.h \
     element.h \

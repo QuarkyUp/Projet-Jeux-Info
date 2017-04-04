@@ -1,10 +1,9 @@
 #ifndef ENNEMI_H
 #define ENNEMI_H
 #include <QGraphicsScene>
-#include "personnage.h"
 #include "sprite.h"
 
-class Ennemi : public Personnage
+class Ennemi
 {
 public:
     static Ennemi* newEnnemi(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene);

@@ -4,11 +4,9 @@
 #include <QDebug>
 #include <QGraphicsView>
 #include <QKeyEvent>
-
-#include "personnage.h"
 #include "sprite.h"
 
-class Player : public Personnage, public QWidget
+class Player : public QWidget
 {
 public:
     /** CONSTRUCTOR **/
