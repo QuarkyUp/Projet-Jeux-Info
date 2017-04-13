@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QString>
 
 #include "map.h"
 #include "player.h"
@@ -17,6 +18,8 @@ public:
     /** METHODS **/
 
     void generateMap(QGraphicsScene*);
+
+    void sendKeyboardEvent(QString);
 
     /** GETTER **/
     Map* getMap();

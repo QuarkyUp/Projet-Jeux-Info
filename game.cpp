@@ -25,5 +25,14 @@ Player* Game::getPlayer()
     return this->myPlayer;
 }
 
-
-
+void Game::sendKeyboardEvent(QString string)
+{
+    if (string == "UP")
+        this->getPlayer()->moveUp();
+    else if (string == "DOWN")
+        this->getPlayer()->moveDown();
+    else if (string == "LEFT")
+        this->getPlayer()->moveLeft();
+    else if (string == "RIGHT")
+        this->getPlayer()->moveRight();
+}

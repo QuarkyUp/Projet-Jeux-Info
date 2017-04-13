@@ -14,13 +14,13 @@ Scene::Scene()
 void Scene::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Up)
-        qDebug() << "UP";
+        this->game->sendKeyboardEvent("UP");
     else if (event->key() == Qt::Key_Down)
-        qDebug() << "DOWN";
+        this->game->sendKeyboardEvent("DOWN");
     else if (event->key() == Qt::Key_Left)
-        qDebug() << "LEFT";
+        this->game->sendKeyboardEvent("LEFT");
     else if (event->key() == Qt::Key_Right)
-        qDebug() << "RIGTH";
+        this->game->sendKeyboardEvent("RIGHT");
 }
 
 void Scene::createView()

@@ -37,25 +37,25 @@ qreal Player::getYpos()
     return this->getSprite()->getPixmapItem()->y();
 }
 
-//void Player::moveRightPlayer()
-//{
-//    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX() + 50, this->playerSprite->getCoordY());
-//}
+void Player::moveUp()
+{
 
-//void Player::moveLeftPlayer()
-//{
-//    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX() - 50, this->playerSprite->getCoordY());
-//}
+}
 
-//void Player::moveUpPlayer()
-//{
-//    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX(), this->playerSprite->getCoordY() - 50);
-//}
+void Player::moveDown()
+{
 
-//void Player::moveDownPlayer()
-//{
-//    this->playerSprite->pixmapItem->setOffset(this->playerSprite->getCoordX(), this->playerSprite->getCoordY() + 50);
-//}
+}
+
+void Player::moveLeft()
+{
+
+}
+
+void Player::moveRight()
+{
+
+}
 
 
 
