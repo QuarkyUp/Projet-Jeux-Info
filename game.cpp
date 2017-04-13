@@ -5,7 +5,6 @@
 Game::Game(QGraphicsScene* scene)
 {
     this->map = new Map();
-    this->myPlayer = Player::newPlayer(":/resources/resources/player.png", 100, 100, scene);
 }
 
 
@@ -13,6 +12,8 @@ void Game::generateMap(QGraphicsScene* scene)
 {
     map->createMap();
     map->drawMap(scene);
+    this->myPlayer = Player::newPlayer(":/resources/resources/player.png", 100, 100, scene);
+
 }
 
 Map* Game::getMap()

@@ -39,22 +39,22 @@ qreal Player::getYpos()
 
 void Player::moveUp()
 {
-
+    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getCoordX(), this->getSprite()->getCoordY()-10);
 }
 
 void Player::moveDown()
 {
-
+    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getCoordX(), this->getSprite()->getCoordY()+10);
 }
 
 void Player::moveLeft()
 {
-
+    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getCoordX()-10, this->getSprite()->getCoordY());
 }
 
 void Player::moveRight()
 {
-
+    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getCoordX()+10, this->getSprite()->getCoordY());
 }
 
 
