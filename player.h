@@ -1,12 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include <QGraphicsScene>
 #include <QDebug>
 #include <QGraphicsView>
-#include <QKeyEvent>
+
 #include "sprite.h"
 
-class Player : public QWidget
+class Player
 {
 public:
     /** CONSTRUCTOR **/

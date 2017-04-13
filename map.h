@@ -9,6 +9,7 @@
 #include <QVector>
 #include <QGraphicsScene>
 
+
 #define WIDTH 31
 #define HEIGH 31
 #define PIXEL_SIZE 32
@@ -18,6 +19,7 @@ class Map
 public:
     /** CONSTRUCTOR **/
     Map();
+    ~Map();
 
     /** METHODS **/
     static Map* newInstance();

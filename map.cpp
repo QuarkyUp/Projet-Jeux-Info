@@ -7,6 +7,11 @@ Map::Map()
     this->background = new QVector<Element*>();
 }
 
+Map::~Map()
+{
+    delete this->background;
+}
+
 Map* Map::newInstance()
 {
     if (Map::instance == NULL)

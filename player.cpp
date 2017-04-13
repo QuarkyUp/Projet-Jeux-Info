@@ -20,7 +20,6 @@ Player* Player::newPlayer(QString imagePath, qreal coordX, qreal coordY, QGraphi
 void Player::drawPlayer(QGraphicsScene* scene)
 {
    scene->addItem(this->playerSprite->getPixmapItem());
-
 }
 
 Sprite* Player::getSprite()

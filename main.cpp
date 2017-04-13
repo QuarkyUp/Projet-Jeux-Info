@@ -1,11 +1,13 @@
 #include <QApplication>
-#include "game.h"
+#include "scene.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Game* game = new Game();
-    game->generateMap();
+
+    Scene* scene = new Scene();
+    scene->createView();
+
 
     return a.exec();
 }

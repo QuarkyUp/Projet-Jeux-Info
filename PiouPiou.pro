@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     porte.cpp \
     item.cpp \
     game.cpp \
-    sprite.cpp
+    sprite.cpp \
+    scene.cpp
 
 HEADERS  += \
     map.h \
@@ -34,7 +35,8 @@ HEADERS  += \
     porte.h \
     item.h \
     game.h \
-    sprite.h
+    sprite.h \
+    scene.h
 
 FORMS    +=
 
