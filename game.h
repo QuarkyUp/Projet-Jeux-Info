@@ -12,13 +12,15 @@ class Game
 {
 public:
     /** CONSTRUCTOR **/
-    Game();
+    Game(QGraphicsScene*);
 
     /** METHODS **/
 
     void generateMap(QGraphicsScene*);
 
     /** GETTER **/
+    Map* getMap();
+    Player* getPlayer();
 
 private:
 

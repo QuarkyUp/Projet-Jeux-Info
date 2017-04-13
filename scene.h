@@ -10,9 +10,17 @@
 class Scene : public QGraphicsScene
 {
 public:
+    /** CONSTRUCTOR **/
     Scene();
+
+    /** METHODS **/
     void keyPressEvent(QKeyEvent* event);
     void createView();
+    void createGame();
+
+    /** GETTER **/
+    QGraphicsView* getView();
+    Game* getGame();
 
 private:
     QGraphicsView* view;
