@@ -5,10 +5,12 @@
 Scene::Scene()
 {
     this->setSceneRect(0, 0 , GAME_SIZE, GAME_SIZE);
+}
 
+void Scene::start()
+{
     this->createView();
     this->createGame();
-
 }
 
 void Scene::keyPressEvent(QKeyEvent* event)

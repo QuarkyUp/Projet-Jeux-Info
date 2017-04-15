@@ -14,6 +14,7 @@ public:
     Scene();
 
     /** METHODS **/
+    void start();
     void keyPressEvent(QKeyEvent* event);
     void createView();
     void createGame();

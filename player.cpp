@@ -39,22 +39,22 @@ qreal Player::getYpos()
 
 void Player::moveUp()
 {
-    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getCoordX(), this->getSprite()->getCoordY()-10);
+    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getPixmapItem()->x(), this->getSprite()->getPixmapItem()->y()-10);
 }
 
 void Player::moveDown()
 {
-    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getCoordX(), this->getSprite()->getCoordY()+10);
+    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getPixmapItem()->x(), this->getSprite()->getPixmapItem()->y()+10);
 }
 
 void Player::moveLeft()
 {
-    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getCoordX()-10, this->getSprite()->getCoordY());
+    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getPixmapItem()->x()-10, this->getSprite()->getPixmapItem()->y());
 }
 
 void Player::moveRight()
 {
-    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getCoordX()+10, this->getSprite()->getCoordY());
+    this->getSprite()->getPixmapItem()->setPos(this->getSprite()->getPixmapItem()->x()+10, this->getSprite()->getPixmapItem()->y());
 }
 
 
