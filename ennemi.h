@@ -6,13 +6,20 @@
 class Ennemi
 {
 public:
-    static Ennemi* newEnnemi(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene);
-private:
     Ennemi(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene);
+    qreal getXpos();
+    qreal getYpos();
+    Sprite* getSprite();
+
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+
+private:
     void drawEnnemi(QGraphicsScene* scene);
 
     QGraphicsScene* scene;
-    static Ennemi* EnnemiInstance;
     Sprite* EnnemiSprite;
 };
 

@@ -7,6 +7,8 @@
 
 #include "map.h"
 #include "player.h"
+#include "ennemi.h"
+#include "ennemyintel.h"
 
 
 class Game
@@ -29,6 +31,8 @@ private:
 
     Map* map;
     Player* myPlayer;
+    QVector<Ennemi*>* ennemiVector;
+    QVector<EnnemyIntel*>* ennemiIntelVector;
 };
 
 #endif // GAME_H

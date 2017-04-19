@@ -1,21 +1,48 @@
 #include "ennemi.h"
 
-Ennemi* Ennemi::EnnemiInstance;
-
 Ennemi::Ennemi(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene)
 {
+    this->scene = scene;
     EnnemiSprite = new Sprite(imagePath, coordX, coordY);
     drawEnnemi(scene);
-}
-
-Ennemi* Ennemi::newEnnemi(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene)
-{
-    if (Ennemi::EnnemiInstance == NULL)
-        Ennemi::EnnemiInstance = new Ennemi(imagePath, coordX, coordY, scene);
-    return Ennemi::EnnemiInstance;
 }
 
 void Ennemi::drawEnnemi(QGraphicsScene* scene)
 {
    scene->addItem(EnnemiSprite->getPixmapItem());
+}
+
+Sprite* Ennemi::getSprite()
+{
+    return this->EnnemiSprite;
+}
+
+qreal Ennemi::getXpos()
+{
+    return this->getSprite()->getPixmapItem()->x();
+}
+
+qreal Ennemi::getYpos()
+{
+    return this->getSprite()->getPixmapItem()->y();
+}
+
+void Ennemi::moveUp()
+{
+    this->getSprite()->getPixmapItem()->setPos(this->getXpos(), this->getYpos()-10);
+}
+
+void Ennemi::moveDown()
+{
+    this->getSprite()->getPixmapItem()->setPos(this->getXpos(), this->getYpos()+10);
+}
+
+void Ennemi::moveLeft()
+{
+    this->getSprite()->getPixmapItem()->setPos(this->getXpos()-10, this->getYpos());
+}
+
+void Ennemi::moveRight()
+{
+    this->getSprite()->getPixmapItem()->setPos(this->getXpos()+10, this->getYpos());
 }
