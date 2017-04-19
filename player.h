@@ -24,12 +24,13 @@ public:
       void moveRight();
     /** GETTERS **/
     Sprite* getSprite();
+    QGraphicsScene* scene;
 
 private:
     Player(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene);
     void drawPlayer(QGraphicsScene* scene);
 
-    QGraphicsScene* scene;
+
     static Player* playerInstance;
     Sprite* playerSprite;
 };

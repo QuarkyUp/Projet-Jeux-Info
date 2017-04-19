@@ -3,7 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include <game.h>
+#include "game.h"
 
 #define GAME_SIZE 31*31
 

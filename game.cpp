@@ -12,21 +12,22 @@ void Game::generateMap(QGraphicsScene* scene)
 {
     map->createMap();
     map->drawMap(scene);
-    this->myPlayer = Player::newPlayer(":/resources/resources/player.png", 0, 0, scene);
+    this->myPlayer = Player::newPlayer(":/resources/resources/playerRight.png", 300, 300, scene);
 
     this->ennemiVector = new QVector<Ennemi*>();
 
     for(int i = 0; i < 1; i++){
-        Ennemi* ennemi = new Ennemi(":/resources/resources/player.png", 100,100, scene);
+        Ennemi* ennemi = new Ennemi(":/resources/resources/playerLeft.png", 100,100, scene);
         this->ennemiVector->append(ennemi);
     }
 
-
-    for(int i = 0; i < 1; i++){
-        EnnemyIntel* ennemyIntel = new EnnemyIntel(this->ennemiVector->at(i), this->myPlayer);
+    /*
+    //for(int i = 0; i < 1; i++){
+        EnnemyIntel* ennemyIntel = new EnnemyIntel(this->ennemiVector->at(0), this->myPlayer);
         //this->ennemiIntelVector->append(ennemyIntel);
         ennemyIntel->start();
-    }
+    //}
+    */
 
 
 

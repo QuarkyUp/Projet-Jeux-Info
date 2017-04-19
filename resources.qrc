@@ -1,7 +1,11 @@
 <RCC>
     <qresource prefix="/resources">
         <file>resources/mur.png</file>
-        <file>resources/player.png</file>
         <file>resources/sol.png</file>
+        <file>resources/playerLeft.png</file>
+        <file>resources/playerRight.png</file>
+        <file>resources/playerDown.png</file>
+        <file>resources/playerUp.png</file>
+        <file>resources/sand.png</file>
     </qresource>
 </RCC>
