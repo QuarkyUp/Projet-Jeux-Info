@@ -7,9 +7,10 @@
 class Porte : public Element
 {
 public:
-    Porte(qreal x, qreal y);
+    Porte(qreal x, qreal y, QString orientation);
     void drawPorte(QGraphicsScene* scene);
 
+    QString className();
 private:
     Sprite* sprite;
 };

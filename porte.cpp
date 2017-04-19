@@ -1,8 +1,19 @@
-        #include "porte.h"
+#include "porte.h"
 
-    Porte::Porte(qreal x, qreal y)
-    {
-        /** IL FAUT AJOUTER L'IMAGE DE LA PORTE **/
-        //this->sprite = new Sprite(":/resources/resources/porte.png", x, y);
-        Element::sprite = new Sprite(":/resources/resources/sol.png", x, y);
-    }
+Porte::Porte(qreal x, qreal y, QString orientation)
+{
+    if (orientation == "haut")
+        Element::sprite = new Sprite(":/resources/resources/doorUp.png", x, y);
+    else if (orientation == "bas")
+        Element::sprite = new Sprite(":/resources/resources/doorDown.png", x, y);
+    else if (orientation == "droite")
+        Element::sprite = new Sprite(":/resources/resources/doorRight.png", x, y);
+    else if (orientation == "gauche")
+        Element::sprite = new Sprite(":/resources/resources/doorLeft.png", x, y);
+}
+
+QString Porte::className()
+{
+    return "Porte";
+}
+

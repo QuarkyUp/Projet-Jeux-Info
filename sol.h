@@ -11,6 +11,7 @@ public:
 
     void drawSol(QGraphicsScene* scene);
 
+    QString className();
 private:
     Sprite* sprite;
 };

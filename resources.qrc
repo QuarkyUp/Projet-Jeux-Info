@@ -7,5 +7,11 @@
         <file>resources/playerDown.png</file>
         <file>resources/playerUp.png</file>
         <file>resources/sand.png</file>
+        <file>resources/doorDown.png</file>
+        <file>resources/doorLeft.png</file>
+        <file>resources/doorRight.png</file>
+        <file>resources/doorUp.png</file>
+        <file>resources/key.png</file>
+        <file>resources/obstacle.png</file>
     </qresource>
 </RCC>

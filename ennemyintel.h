@@ -9,6 +9,7 @@ class EnnemyIntel : public QThread
 {
 public:
     EnnemyIntel(Ennemi* ennemi, Player* player);
+    void moveTowardsPlayer();
 
 private:
     void run();

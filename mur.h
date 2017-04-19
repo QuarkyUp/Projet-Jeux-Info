@@ -15,6 +15,8 @@ public:
 
     void drawMur(QGraphicsScene* scene);
 
+    QString className();
+
 private:
     Sprite* sprite;
 };

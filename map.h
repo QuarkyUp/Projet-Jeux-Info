@@ -8,6 +8,9 @@
 
 #include <QVector>
 #include <QGraphicsScene>
+#include <QTime>
+#include <time.h>
+
 
 
 #define WIDTH 31

@@ -6,3 +6,8 @@ Sol::Sol(qreal x, qreal y)
     Element::sprite = new Sprite(":/resources/resources/sand.png", x, y);
 }
 
+QString Sol::className()
+{
+    return "Sol";
+}
+
