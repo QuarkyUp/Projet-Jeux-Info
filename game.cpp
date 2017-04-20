@@ -15,21 +15,19 @@ void Game::generateMap(QGraphicsScene* scene)
     this->myPlayer = Player::newPlayer(":/resources/resources/playerRight.png", 300, 300, scene);
 
     this->ennemiVector = new QVector<Ennemi*>();
+    this->ennemiIntelVector = new QVector<EnnemyIntel*>();
 
     for(int i = 0; i < 1; i++){
-        Ennemi* ennemi = new Ennemi(":/resources/resources/playerLeft.png", 100,100, scene);
+        Ennemi* ennemi = new Ennemi(":/resources/resources/playerUp.png", 100,100, scene);
         this->ennemiVector->append(ennemi);
+
+        EnnemyIntel* ennemiIntel = new EnnemyIntel(ennemi, this->myPlayer);
+        this->ennemiIntelVector->append(ennemiIntel);
     }
 
-    /*
-    //for(int i = 0; i < 1; i++){
-        EnnemyIntel* ennemyIntel = new EnnemyIntel(this->ennemiVector->at(0), this->myPlayer);
-        //this->ennemiIntelVector->append(ennemyIntel);
-        ennemyIntel->start();
-    //}
-    */
-
-
+    for (int i = 0; i < 1; i++){
+        ennemiIntelVector->at(i)->start();
+    }
 
 }
 

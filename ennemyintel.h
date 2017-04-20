@@ -2,6 +2,7 @@
 #define ENNEMYINTEL_H
 
 #include <QThread>
+#include <QTimer>
 #include "ennemi.h"
 #include "player.h"
 
@@ -16,6 +17,8 @@ private:
 
     Ennemi* ennemi;
     Player* player;
+
+    QTimer timer;
 };
 
 #endif // ENNEMYINTEL_H
