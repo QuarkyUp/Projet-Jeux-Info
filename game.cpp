@@ -18,7 +18,7 @@ void Game::generateMap(QGraphicsScene* scene)
     this->ennemiIntelVector = new QVector<EnnemyIntel*>();
 
     for(int i = 0; i < 1; i++){
-        Ennemi* ennemi = new Ennemi(":/resources/resources/playerUp.png", 100,100, scene);
+        Ennemi* ennemi = new Ennemi(":/resources/resources/ennemiUp.png", 100,100, scene);
         this->ennemiVector->append(ennemi);
 
         EnnemyIntel* ennemiIntel = new EnnemyIntel(ennemi, this->myPlayer);

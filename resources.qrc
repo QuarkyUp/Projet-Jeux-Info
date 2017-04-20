@@ -13,5 +13,9 @@
         <file>resources/doorUp.png</file>
         <file>resources/key.png</file>
         <file>resources/obstacle.png</file>
+        <file>resources/ennemiDown.png</file>
+        <file>resources/ennemiLeft.png</file>
+        <file>resources/ennemiRight.png</file>
+        <file>resources/ennemiUp.png</file>
     </qresource>
 </RCC>
