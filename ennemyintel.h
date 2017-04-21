@@ -1,24 +1,27 @@
 #ifndef ENNEMYINTEL_H
 #define ENNEMYINTEL_H
 
-#include <QThread>
 #include <QTimer>
+#include <QObject>
 #include "ennemi.h"
 #include "player.h"
 
-class EnnemyIntel : public QThread
+class EnnemyIntel: public QObject
 {
+    Q_OBJECT
 public:
     EnnemyIntel(Ennemi* ennemi, Player* player);
     void moveTowardsPlayer();
 
-private:
+
+public slots:
     void run();
+
+private:
+
 
     Ennemi* ennemi;
     Player* player;
-
-    QTimer timer;
 };
 
 #endif // ENNEMYINTEL_H

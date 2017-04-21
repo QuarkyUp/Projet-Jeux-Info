@@ -4,6 +4,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QString>
+#include <QTimer>
+#include <QObject>
 
 #include "map.h"
 #include "player.h"
@@ -11,7 +13,7 @@
 #include "ennemyintel.h"
 
 
-class Game
+class Game: public QObject
 {
 public:
     /** CONSTRUCTOR **/
@@ -19,7 +21,7 @@ public:
 
     /** METHODS **/
 
-    void generateMap(QGraphicsScene*);
+    void generateMap(QGraphicsScene* scene);
 
     void sendKeyboardEvent(QString);
 
@@ -33,6 +35,7 @@ private:
     Player* myPlayer;
     QVector<Ennemi*>* ennemiVector;
     QVector<EnnemyIntel*>* ennemiIntelVector;
+    QVector<QTimer*>* ennemiTimer;
 };
 
 #endif // GAME_H

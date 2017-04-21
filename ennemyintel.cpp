@@ -26,7 +26,7 @@ void EnnemyIntel::run()
         */
 
         //qDebug() << ennemi->getXpos();
-        ennemi->getSprite()->getPixmapItem()->setPos(ennemi->getXpos()+500, ennemi->getYpos());
+        ennemi->getSprite()->getPixmapItem()->setPos(ennemi->getXpos()+10, ennemi->getYpos());
         //ennemi->getSprite()->getPixmapItem()->setPos(ennemi->getXpos()+250, ennemi->getYpos());
         //qDebug() << ennemi->getXpos();
 
