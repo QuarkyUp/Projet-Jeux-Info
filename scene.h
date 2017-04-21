@@ -16,6 +16,7 @@ public:
     /** METHODS **/
     void start();
     void keyPressEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent *event);
     void createView();
     void createGame();
 
