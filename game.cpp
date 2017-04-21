@@ -20,8 +20,8 @@ void Game::generateMap(QGraphicsScene* scene)
     this->ennemiIntelVector = new QVector<EnnemyIntel*>();
     this->ennemiTimer = new QVector<QTimer*>();
 
-    for(int i = 0; i < 1; i++){
-        Ennemi* ennemi = new Ennemi(":/resources/resources/ennemiUp.png", 100,100, scene);
+    for(int i = 0; i < 5; i++){
+        Ennemi* ennemi = new Ennemi(":/resources/resources/ennemiUp.png", 100*(i+1),100*(i+1), scene);
         qDebug() << ennemi->getSprite()->getPixmapItem()->sceneBoundingRect().x();
         this->ennemiVector->append(ennemi);
 
@@ -29,11 +29,11 @@ void Game::generateMap(QGraphicsScene* scene)
         this->ennemiIntelVector->append(ennemiIntel);
 
 
-        //MARCHE BIEN - NO NEED FIX
+
         //QTimer *timer = new QTimer();
         this->ennemiTimer->append(new QTimer());
         connect(this->ennemiTimer->at(i), SIGNAL(timeout()), this->ennemiIntelVector->at(i), SLOT(run()));
-        this->ennemiTimer->at(i)->start(1000);
+        this->ennemiTimer->at(i)->start(35);
     }
 
 
