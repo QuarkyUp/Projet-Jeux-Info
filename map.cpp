@@ -50,16 +50,16 @@ void Map::createMap()
 
             //Les portes et les murs s'affiches en transparence par dessus le sol
             //gauche
-            if(i == 0 && j == 15)
+            if(i == 0 && (j == 15 || j == 14 || j == 16))
                 this->background->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "gauche"));
             //droite
-            else if ((i == HEIGH-2 && j == 15))
+            else if (i == HEIGH-2 && (j == 15 || j == 14 || j == 16))
                 this->background->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "droite"));
             //haut
-            else if (i == 15 && j == 0)
+            else if ((i == 13 || i == 14 || i == 15) && j == 0)
                 this->background->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "haut"));
             //bas
-            else if (i == 15 && j==WIDTH-2)
+            else if ((i == 13 || i == 14 || i == 15) && j==WIDTH-2)
                 this->background->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "bas"));
             //Obstacles
             else if (i == 0 || i == HEIGH-2 || j == 0 || j == WIDTH-2)

@@ -10,31 +10,7 @@ EnnemyIntel::EnnemyIntel(Ennemi* ennemi, Player* player)
 
 void EnnemyIntel::run()
 {
-    // ------------------------------------------------------------------
-    // Les déplacements fonctionnent sans Timer et sans boucle while
-    // NEED BIG FIX
-    // ------------------------------------------------------------------
-
-    //while(true)
-    //{
-        /*
-        qDebug() << "before start";
-        timer.start(1000);
-        qDebug() << "between start and while";
-        while (timer.remainingTime() > 0);
-        qDebug() << "after while";
-        */
-
-        //qDebug() << ennemi->getXpos();
-        ennemi->getSprite()->getPixmapItem()->setPos(ennemi->getXpos()+10, ennemi->getYpos());
-        //ennemi->getSprite()->getPixmapItem()->setPos(ennemi->getXpos()+250, ennemi->getYpos());
-        //qDebug() << ennemi->getXpos();
-
-
-        //moveTowardsPlayer();
-    //}
-
-
+        ennemi->getSprite()->getPixmapItem()->setOffset(ennemi->getXpos()+10, ennemi->getYpos());
 }
 
 // Mauvais Référentiel

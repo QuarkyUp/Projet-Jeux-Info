@@ -19,17 +19,17 @@ Sprite* Ennemi::getSprite()
 
 qreal Ennemi::getXpos()
 {
-    return this->getSprite()->getPixmapItem()->x();
+    return this->getSprite()->getPixmapItem()->sceneBoundingRect().x();
 }
 
 qreal Ennemi::getYpos()
 {
-    return this->getSprite()->getPixmapItem()->y();
+    return this->getSprite()->getPixmapItem()->sceneBoundingRect().y();
 }
 
 void Ennemi::moveUp()
 {
-    this->getSprite()->getPixmapItem()->setPos(this->getXpos(), this->getYpos()-10);
+    this->getSprite()->getPixmapItem()->sceneBoundingRect().moveTo(this->getXpos(), this->getYpos()-10);
 }
 
 void Ennemi::moveDown()
