@@ -18,5 +18,6 @@
         <file>resources/ennemiRight.png</file>
         <file>resources/ennemiUp.png</file>
         <file>resources/donkeyUp.png</file>
+        <file>resources/barrel.png</file>
     </qresource>
 </RCC>

@@ -14,6 +14,7 @@ public:
     void moveTowardsPlayer();
 
 
+    void changeRotation();
 public slots:
     void run();
 
@@ -23,7 +24,6 @@ private:
     Ennemi* ennemi;
     Player* player;
     QVector<Ennemi*>* ennemiVector;
-    void changeRotation();
 };
 
 #endif // ENNEMYINTEL_H

@@ -7,6 +7,9 @@
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
 #include "game.h"
+#include "item.h"
+#include "barrelintel.h"
+#include <QTimer>
 
 #define GAME_SIZE 31*31
 
@@ -28,11 +31,16 @@ public:
 
     void mouseMoveEvent  (QGraphicsSceneMouseEvent * event );
 
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
 private:
     QGraphicsView* view;
     Game* game;
     qreal lastMousePosX;
     qreal lastMousePosY;
+
+    QVector<BarrelIntel*>* barrelIntelVector;
+    QVector<Item*>* barrelVector;
+    QVector<QTimer*>* barrelTimer;
 };
 
 #endif // SCENE_H

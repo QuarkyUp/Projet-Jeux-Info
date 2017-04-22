@@ -7,6 +7,9 @@
 Scene::Scene()
 {
     this->setSceneRect(0, 0 , GAME_SIZE, GAME_SIZE);
+    this->barrelIntelVector = new QVector<BarrelIntel*>();
+    this->barrelVector = new QVector<Item*>();
+    this->barrelTimer = new QVector<QTimer*>();
 }
 
 void Scene::start()
@@ -95,6 +98,25 @@ void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event ){
 
     game->getPlayer()->getSprite()->getPixmapItem()->setPixmap(rotate);
 
+}
+
+void Scene::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
+{
+    this->lastMousePosX = event->scenePos().x();
+    this->lastMousePosY = event->scenePos().y();
+    qreal playerX = game->getPlayer()->getXpos();
+    qreal playerY = game->getPlayer()->getYpos();
+
+
+    Item* barrel = new Item(":/resources/resources/barrel.png", playerX,playerY, this);
+    this->barrelVector->append(barrel);
+
+    BarrelIntel* barrelIntel = new BarrelIntel(barrel, this->game->getPlayer(), this->lastMousePosX, this->lastMousePosY);
+    this->barrelIntelVector->append(barrelIntel);
+
+    this->barrelTimer->append(new QTimer());
+    connect(this->barrelTimer->last(), SIGNAL(timeout()), this->barrelIntelVector->last(), SLOT(run()));
+    this->barrelTimer->last()->start(30);
 }
 
 void Scene::createView()

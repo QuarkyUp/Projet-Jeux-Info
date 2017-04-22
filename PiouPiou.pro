@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     game.cpp \
     sprite.cpp \
     scene.cpp \
-    ennemyintel.cpp
+    ennemyintel.cpp \
+    barrelintel.cpp
 
 HEADERS  += \
     map.h \
@@ -38,7 +39,8 @@ HEADERS  += \
     game.h \
     sprite.h \
     scene.h \
-    ennemyintel.h
+    ennemyintel.h \
+    barrelintel.h
 
 FORMS    +=
 

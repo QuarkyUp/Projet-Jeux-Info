@@ -25,7 +25,6 @@ public:
     /** GETTERS **/
     Sprite* getSprite();
     QGraphicsScene* scene;
-
 private:
     Player(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene);
     void drawPlayer(QGraphicsScene* scene);
