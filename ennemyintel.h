@@ -10,7 +10,7 @@ class EnnemyIntel: public QObject
 {
     Q_OBJECT
 public:
-    EnnemyIntel(Ennemi* ennemi, Player* player);
+    EnnemyIntel(Ennemi* ennemi, Player* player, QVector<Ennemi*>* ennemiVector);
     void moveTowardsPlayer();
 
 
@@ -22,6 +22,7 @@ private:
 
     Ennemi* ennemi;
     Player* player;
+    QVector<Ennemi*>* ennemiVector;
 };
 
 #endif // ENNEMYINTEL_H

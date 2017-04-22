@@ -66,10 +66,10 @@ void Map::createMap()
                 this->background->append(new Mur(i*PIXEL_SIZE, j*PIXEL_SIZE));
             // Trouver une meilleure seed pour avoir des mur/obstacle aléatoire
 
-            /*
+
             else if (random_x < 15 && i > 3 && j > 3 && i < HEIGH - 3 && j < WIDTH - 3)
                 this->background->append(new Mur(i*PIXEL_SIZE, j*PIXEL_SIZE));
-            */
+
 
         }
     }

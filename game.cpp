@@ -12,7 +12,7 @@ void Game::generateMap(QGraphicsScene* scene)
 {
     map->createMap();
     map->drawMap(scene);
-    this->myPlayer = Player::newPlayer(":/resources/resources/playerRight.png", 300, 300, scene);
+    this->myPlayer = Player::newPlayer(":/resources/resources/donkeyUp.png", 300, 300, scene);
     //qDebug() << this->myPlayer->getSprite()->getPixmapItem()->sceneBoundingRect();
     //qDebug() << scene->getView()
 
@@ -25,7 +25,7 @@ void Game::generateMap(QGraphicsScene* scene)
         qDebug() << ennemi->getSprite()->getPixmapItem()->sceneBoundingRect().x();
         this->ennemiVector->append(ennemi);
 
-        EnnemyIntel* ennemiIntel = new EnnemyIntel(ennemi, this->myPlayer);
+        EnnemyIntel* ennemiIntel = new EnnemyIntel(ennemi, this->myPlayer, this->ennemiVector);
         this->ennemiIntelVector->append(ennemiIntel);
 
 
