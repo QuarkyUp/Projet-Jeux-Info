@@ -39,7 +39,51 @@ void EnnemyIntel::moveTowardsPlayer()
 
     if((dist > 60))
     {
+        changeRotation();
         ennemi->getSprite()->getPixmapItem()->setOffset(ennemi->getXpos()+moveX, ennemi->getYpos());
         ennemi->getSprite()->getPixmapItem()->setOffset(ennemi->getXpos(), ennemi->getYpos()+moveY);
     }
+}
+
+void EnnemyIntel::changeRotation()
+{
+    qreal playerRelativeX = this->ennemi->getXpos() - this->player->getXpos();
+    qreal playerRelativeY = this->ennemi->getYpos() - this->player->getYpos();
+    qreal angle = M_PI;
+
+    if((playerRelativeX > 0) && (playerRelativeY >= 0))
+    {
+        angle = atan(playerRelativeY / playerRelativeX);
+    }
+    else if ((playerRelativeX > 0) && (playerRelativeY < 0))
+    {
+        angle = atan(playerRelativeY / playerRelativeX) + 2*M_PI;
+    }
+    else if (playerRelativeX < 0)
+    {
+        angle = atan(playerRelativeY / playerRelativeX) + M_PI;
+    }
+    else if ((playerRelativeX == 0) && (playerRelativeY > 0))
+    {
+        angle = M_PI/2;
+    }
+    else if ((playerRelativeX == 0) && (playerRelativeY < 0))
+    {
+        angle = 3*(M_PI/2);
+    }
+
+    QPixmap rotate(this->ennemi->getSprite()->getPixmap()->size());
+    rotate.fill(QColor::fromRgb(0, 0, 0, 0));
+    QPainter p(&rotate);
+    p.setBackgroundMode(Qt::TransparentMode);
+    p.setRenderHint(QPainter::Antialiasing);
+    p.setRenderHint(QPainter::SmoothPixmapTransform);
+    p.setRenderHint(QPainter::HighQualityAntialiasing);
+    p.translate(rotate.size().width() / 2, rotate.size().height() / 2);
+    p.rotate(angle*(180/M_PI) - 90);
+    p.translate(-rotate.size().width() / 2, -rotate.size().height() / 2);
+
+    p.drawPixmap(0, 0, *this->ennemi->getSprite()->getPixmap());
+    p.end();
+    this->ennemi->getSprite()->getPixmapItem()->setPixmap(rotate);
 }

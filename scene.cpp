@@ -78,12 +78,7 @@ void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event ){
     {
         angle = 3*(M_PI/2);
     }
-    /*
-    QTransform trans;
-    trans.translate(game->getPlayer()->getXpos(), game->getPlayer()->getYpos()).rotate(angle*(180/M_PI), Qt::ZAxis);
-    game->getPlayer()->getSprite()->getPixmapItem()->setTransformOriginPoint(game->getPlayer()->getSprite()->getPixmapItem()->boundingRect().center());
-    game->getPlayer()->getSprite()->getPixmapItem()->setRotation(angle*(180/M_PI));
-    */
+
     QPixmap rotate(game->getPlayer()->getSprite()->getPixmap()->size());
     rotate.fill(QColor::fromRgb(0, 0, 0, 0));
     QPainter p(&rotate);
@@ -101,45 +96,6 @@ void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event ){
     game->getPlayer()->getSprite()->getPixmapItem()->setPixmap(rotate);
 
 }
-
-
-/*
-void Scene::keyPressEvent(QKeyEvent *event) {
-    switch(event->key()) {
-        case Qt::Key_Left:
-            this->game->sendKeyboardEvent("LEFT");
-            break;
-        case Qt::Key_Right:
-            this->game->sendKeyboardEvent("RIGHT");
-            break;
-        case Qt::Key_Up:
-            this->game->sendKeyboardEvent("UP");
-            break;
-        case Qt::Key_Down:
-            this->game->sendKeyboardEvent("DOWN");
-            break;
-    }
-}
-
-void Scene::keyReleaseEvent(QKeyEvent *event) {
-    if (!event->isAutoRepeat()) {
-        switch(event->key()) {
-            case Qt::Key_Left:
-                this->game->sendKeyboardEvent("LEFT");
-                break;
-            case Qt::Key_Right:
-                this->game->sendKeyboardEvent("RIGHT");
-                break;
-            case Qt::Key_Up:
-                this->game->sendKeyboardEvent("UP");
-                break;
-            case Qt::Key_Down:
-                this->game->sendKeyboardEvent("DOWN");
-                break;
-        }
-    }
-}
-*/
 
 void Scene::createView()
 {

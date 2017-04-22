@@ -23,6 +23,7 @@ private:
     Ennemi* ennemi;
     Player* player;
     QVector<Ennemi*>* ennemiVector;
+    void changeRotation();
 };
 
 #endif // ENNEMYINTEL_H
