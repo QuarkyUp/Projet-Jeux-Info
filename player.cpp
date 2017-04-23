@@ -8,6 +8,7 @@ Player::Player(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* sc
     this->scene = scene;
     playerSprite = new Sprite(imagePath, coordX, coordY);
     drawPlayer(scene);
+    this->current_position = new QPoint();
 }
 
 Player* Player::newPlayer(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene)
@@ -68,6 +69,11 @@ void Player::moveRight()
 
     this->getSprite()->getPixmap()->load(":/resources/resources/playerRight.png");
     this->getSprite()->getPixmapItem()->setPixmap(*this->getSprite()->getPixmap());
+}
+
+QPoint* Player::getCurrentPos()
+{
+    return this->current_position;
 }
 
 

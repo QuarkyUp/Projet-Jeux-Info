@@ -17,7 +17,7 @@ class Game: public QObject
 {
 public:
     /** CONSTRUCTOR **/
-    Game(QGraphicsScene*);
+    Game();
 
     /** METHODS **/
 

@@ -1,4 +1,5 @@
 #include "barrelintel.h"
+#include <QDebug>
 
 BarrelIntel::BarrelIntel(Item* barrel, Player* player, qreal mousePosX, qreal mousePosY)
 {
@@ -11,8 +12,6 @@ BarrelIntel::BarrelIntel(Item* barrel, Player* player, qreal mousePosX, qreal mo
 void BarrelIntel::run()
 {
     moveTowardsMouse();
-
-
 }
 
 void BarrelIntel::moveTowardsMouse()
@@ -34,9 +33,6 @@ void BarrelIntel::moveTowardsMouse()
         this->barrel->getSprite()->getPixmapItem()->setOffset(this->barrel->getXpos()+moveX, this->barrel->getYpos());
         this->barrel->getSprite()->getPixmapItem()->setOffset(this->barrel->getXpos(), this->barrel->getYpos()+moveY);
     }
-    //else
-        //this->scene->barrelTimer->removeOne()
-        //barrel->scene->removeItem(barrel->getSprite()->getPixmapItem());
 }
 
 void BarrelIntel::changeRotation()

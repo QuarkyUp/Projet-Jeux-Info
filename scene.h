@@ -24,6 +24,7 @@ public:
     void keyPressEvent(QKeyEvent* event);
     void createView();
     void createGame();
+    bool collison();
 
     /** GETTER **/
     QGraphicsView* getView();

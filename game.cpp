@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-Game::Game(QGraphicsScene* scene)
+Game::Game()
 {
     this->map = new Map();
 }
@@ -33,7 +33,7 @@ void Game::generateMap(QGraphicsScene* scene)
         //QTimer *timer = new QTimer();
         this->ennemiTimer->append(new QTimer());
         connect(this->ennemiTimer->at(i), SIGNAL(timeout()), this->ennemiIntelVector->at(i), SLOT(run()));
-        this->ennemiTimer->at(i)->start(35);
+        this->ennemiTimer->at(i)->start(15);
     }
 
 

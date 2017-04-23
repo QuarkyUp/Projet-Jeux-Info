@@ -2,6 +2,7 @@
 #define BARRELINTEL_H
 #include "item.h"
 #include "player.h"
+#include <cmath>
 
 class BarrelIntel: public QObject
 {

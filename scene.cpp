@@ -44,10 +44,17 @@ void Scene::keyPressEvent(QKeyEvent* event)
         double moveX = (dx/dist)*4;
         double moveY = (dy/dist)*4;
 
+        /** POUR ENLEVER/AJOUTER COLLISION AVEC MUR AU MILIEU DE LA MAP IL FAUT COMMENTER/DECOMMENTER LIGNE 88 DANS 'map.cpp' **/
         if((dist > 10))
         {
-            game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos()+moveX, game->getPlayer()->getYpos());
-            game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos(), game->getPlayer()->getYpos()+moveY);
+            game->getPlayer()->getCurrentPos()->setX(game->getPlayer()->getXpos());
+            game->getPlayer()->getCurrentPos()->setY(game->getPlayer()->getYpos());
+//                qDebug() << *game->getPlayer()->getCurrentPos();
+                   game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos()+moveX, game->getPlayer()->getYpos());
+                   game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos(), game->getPlayer()->getYpos()+moveY);
+
+                   if (this->collison())
+                    game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getCurrentPos()->x(), game->getPlayer()->getCurrentPos()->y());
         }
     }
 
@@ -135,7 +142,7 @@ void Scene::createView()
 
 void Scene::createGame()
 {
-    this->game = new Game(this);
+    this->game = new Game();
     this->game->generateMap(this);
 }
 
@@ -147,4 +154,23 @@ QGraphicsView* Scene::getView()
 Game* Scene::getGame()
 {
     return this->game;
+}
+
+bool Scene::collison()
+{
+    for (int i = 0; i < game->getMap()->getBackground()->size(); ++i)
+    {
+        //qDebug() << game->getMap()->getBackground()->at(i)->getStr();
+        if (game->getMap()->getBackground()->at(i)->getStr() == "Mur")
+        {
+            //qDebug() << "Test colliding item";
+            if (game->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(game->getMap()->getBackground()->at(i)->getSprite()->getPixmapItem()))
+            {
+                qDebug() << "COLLISION AVEC UN MUR";
+                return true;
+            }
+        }
+    }
+
+    return false;
 }

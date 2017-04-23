@@ -22,9 +22,11 @@ public:
       void moveDown();
       void moveLeft();
       void moveRight();
+
     /** GETTERS **/
     Sprite* getSprite();
     QGraphicsScene* scene;
+    QPoint* getCurrentPos();
 private:
     Player(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene);
     void drawPlayer(QGraphicsScene* scene);
@@ -32,6 +34,7 @@ private:
 
     static Player* playerInstance;
     Sprite* playerSprite;
+    QPoint* current_position;
 };
 
 #endif // PLAYER_H

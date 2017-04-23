@@ -29,6 +29,9 @@ public:
     void createMap();
     void drawMap(QGraphicsScene* scene);
 
+    /** GETTER **/
+    QVector<Element*>* getBackground();
+
 private:
     QVector<Element*>* background;
 

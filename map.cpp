@@ -51,25 +51,42 @@ void Map::createMap()
             //Les portes et les murs s'affiches en transparence par dessus le sol
             //gauche
             if(i == 0 && (j == 15 || j == 14 || j == 16))
+            {
                 this->background->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "gauche"));
+                this->background->last()->setStr("Porte");
+            }
             //droite
             else if (i == HEIGH-2 && (j == 15 || j == 14 || j == 16))
+            {
                 this->background->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "droite"));
+                this->background->last()->setStr("Porte");
+            }
             //haut
             else if ((i == 13 || i == 14 || i == 15) && j == 0)
+            {
                 this->background->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "haut"));
+                this->background->last()->setStr("Porte");
+            }
             //bas
             else if ((i == 13 || i == 14 || i == 15) && j==WIDTH-2)
+            {
                 this->background->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "bas"));
+                this->background->last()->setStr("Porte");
+            }
             //Obstacles
             else if (i == 0 || i == HEIGH-2 || j == 0 || j == WIDTH-2)
+            {
                 this->background->append(new Mur(i*PIXEL_SIZE, j*PIXEL_SIZE));
+                this->background->last()->setStr("Mur");
+            }
             // Trouver une meilleure seed pour avoir des mur/obstacle aléatoire
 
 
             else if (random_x < 15 && i > 3 && j > 3 && i < HEIGH - 3 && j < WIDTH - 3)
+            {
                 this->background->append(new Mur(i*PIXEL_SIZE, j*PIXEL_SIZE));
-
+//                this->background->last()->setStr("Mur");
+            }
 
         }
     }
@@ -82,4 +99,9 @@ void Map::drawMap(QGraphicsScene* scene)
         this->background->at(i)->drawElement(scene);
 
 
+}
+
+QVector<Element *> *Map::getBackground()
+{
+ return this->background;
 }
