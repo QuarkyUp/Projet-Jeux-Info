@@ -12,7 +12,7 @@ void Game::generateMap(QGraphicsScene* scene)
 {
     map->createMap();
     map->drawMap(scene);
-    this->myPlayer = Player::newPlayer(":/resources/resources/donkeyUp.png", 300, 300, scene);
+    this->myPlayer = Player::newPlayer(":/resources/resources/donkeyUp.png", 120, 600, scene);
     //qDebug() << this->myPlayer->getSprite()->getPixmapItem()->sceneBoundingRect();
     //qDebug() << scene->getView()
 
@@ -35,9 +35,6 @@ void Game::generateMap(QGraphicsScene* scene)
         connect(this->ennemiTimer->at(i), SIGNAL(timeout()), this->ennemiIntelVector->at(i), SLOT(run()));
         this->ennemiTimer->at(i)->start(15);
     }
-
-
-
 }
 
 Map* Game::getMap()
@@ -48,6 +45,11 @@ Map* Game::getMap()
 Player* Game::getPlayer()
 {
     return this->myPlayer;
+}
+
+QVector<Ennemi *> *Game::getEnnemiVector()
+{
+    return this->ennemiVector;
 }
 
 void Game::sendKeyboardEvent(QString string)
@@ -61,3 +63,4 @@ void Game::sendKeyboardEvent(QString string)
     else if (string == "RIGHT")
         this->getPlayer()->moveRight();
 }
+

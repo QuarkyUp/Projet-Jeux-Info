@@ -49,12 +49,12 @@ void Scene::keyPressEvent(QKeyEvent* event)
         {
             game->getPlayer()->getCurrentPos()->setX(game->getPlayer()->getXpos());
             game->getPlayer()->getCurrentPos()->setY(game->getPlayer()->getYpos());
-//                qDebug() << *game->getPlayer()->getCurrentPos();
-                   game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos()+moveX, game->getPlayer()->getYpos());
-                   game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos(), game->getPlayer()->getYpos()+moveY);
 
-                   if (this->collison())
-                    game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getCurrentPos()->x(), game->getPlayer()->getCurrentPos()->y());
+            game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos()+moveX, game->getPlayer()->getYpos());
+            game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos(), game->getPlayer()->getYpos()+moveY);
+
+            if (this->collisonMur())
+                game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getCurrentPos()->x(), game->getPlayer()->getCurrentPos()->y());
         }
     }
 
@@ -156,7 +156,12 @@ Game* Scene::getGame()
     return this->game;
 }
 
-bool Scene::collison()
+QVector<Item *> *Scene::getBarrelVector()
+{
+    return this->barrelVector;
+}
+
+bool Scene::collisonMur()
 {
     for (int i = 0; i < game->getMap()->getBackground()->size(); ++i)
     {
@@ -172,5 +177,30 @@ bool Scene::collison()
         }
     }
 
+    return false;
+}
+
+bool Scene::collisionItemEnnemi()
+{
+    for (int i = 0; i < getBarrelVector()->size(); ++i)
+    {
+        if (getBarrelVector()->at(i)->getSprite()->getPixmapItem()->collidesWithItem(this->game->getEnnemiVector()->at(i)->getSprite()->getPixmapItem()))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Scene::collisionPlayerEnnemi()
+{
+    for (int i = 0; i < game->getEnnemiVector()->size(); ++i)
+    {
+        if (game->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(this->game->getEnnemiVector()->at(i)->getSprite()->getPixmapItem()))
+        {
+            qDebug() << "COLLISION AVEC UN ENNEMI";
+            return true;
+        }
+    }
     return false;
 }

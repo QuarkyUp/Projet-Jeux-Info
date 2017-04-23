@@ -24,11 +24,14 @@ public:
     void keyPressEvent(QKeyEvent* event);
     void createView();
     void createGame();
-    bool collison();
+    bool collisonMur();
+    bool collisionPLayerEnnemi();
+    bool collisionItemEnnemi();
 
     /** GETTER **/
     QGraphicsView* getView();
     Game* getGame();
+    QVector<Item*>* getBarrelVector();
 
     void mouseMoveEvent  (QGraphicsSceneMouseEvent * event );
 

@@ -28,6 +28,7 @@ public:
     /** GETTER **/
     Map* getMap();
     Player* getPlayer();
+    QVector<Ennemi*>* getEnnemiVector();
 
 private:
 
