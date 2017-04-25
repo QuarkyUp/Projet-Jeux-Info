@@ -14,6 +14,8 @@
 
 class Scene : public QGraphicsScene
 {
+    Q_OBJECT
+
 public:
     /** CONSTRUCTOR **/
     Scene();
@@ -21,9 +23,11 @@ public:
     /** METHODS **/
     void start();
     void keyPressEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent* event);
     void createView();
     void createGame();
     bool collisonMur();
+    void updateOrientation();
 
     /** GETTER **/
     QGraphicsView* getView();
@@ -32,11 +36,16 @@ public:
     void mouseMoveEvent  (QGraphicsSceneMouseEvent * event );
 
     void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
+
+public slots:
+    void updateKey();
+
 private:
     QGraphicsView* view;
     Game* game;
     qreal lastMousePosX;
     qreal lastMousePosY;
+    QVector<bool>* mvt;
 };
 
 #endif // SCENE_H

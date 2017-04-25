@@ -1,12 +1,46 @@
 #include "scene.h"
 #include <QDebug>
-#include <math.h>
 #include <QTransform>
+#include <cmath>
+
 
 Scene::Scene()
 {
     this->setSceneRect(0, 0 , GAME_SIZE, GAME_SIZE);
 
+    this->mvt = new QVector<bool>();
+    for (int i = 0; i < 5; ++i)
+        this->mvt->append(false);
+
+    QTimer* timer = new QTimer();
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateKey()));
+    timer->start(15);
+
+}
+
+void Scene::updateKey()
+{
+    if (this->mvt->at(0))
+    {
+        game->getPlayer()->moveUp();
+        this->updateOrientation();
+    }
+    if (this->mvt->at(1))
+    {
+        game->getPlayer()->moveDown();
+        this->updateOrientation();
+    }
+    if (this->mvt->at(2))
+    {
+        game->getPlayer()->moveLeft();
+        this->updateOrientation();
+    }
+
+    if (this->mvt->at(3))
+    {
+        game->getPlayer()->moveRight();
+        this->updateOrientation();
+    }
 }
 
 void Scene::start()
@@ -18,20 +52,23 @@ void Scene::start()
 
 void Scene::keyPressEvent(QKeyEvent* event)
 {
-    /*
-    if (event->isAutoRepeat()){
-        if (event->key() == Qt::Key_Up)
-            this->game->sendKeyboardEvent("UP");
-        else if (event->key() == Qt::Key_Down)
-            this->game->sendKeyboardEvent("DOWN");
-        else if (event->key() == Qt::Key_Left)
-            this->game->sendKeyboardEvent("LEFT");
-        else if (event->key() == Qt::Key_Right)
-            this->game->sendKeyboardEvent("RIGHT");
+    if (event->key() == Qt::Key_Z && !event->isAutoRepeat())
+    {
+       this->mvt->replace(0, true);
     }
-    */
-
-
+    if (event->key() == Qt::Key_S && !event->isAutoRepeat())
+    {
+        this->mvt->replace(1, true);
+    }
+    if (event->key() == Qt::Key_Q && !event->isAutoRepeat())
+    {
+        this->mvt->replace(2, true);
+    }
+    if (event->key() == Qt::Key_D && !event->isAutoRepeat())
+    {
+      this->mvt->replace(3, true);
+    }
+    /*
     if (event->key() == Qt::Key_Space)
     {
         double dx = this->lastMousePosX - game->getPlayer()->getXpos();
@@ -41,28 +78,45 @@ void Scene::keyPressEvent(QKeyEvent* event)
         double moveX = (dx/dist)*4;
         double moveY = (dy/dist)*4;
 
-        /** POUR ENLEVER/AJOUTER COLLISION AVEC MUR AU MILIEU DE LA MAP IL FAUT COMMENTER/DECOMMENTER LIGNE 88 DANS 'map.cpp' **/
         if((dist > 10))
         {
             game->getPlayer()->getCurrentPos()->setX(game->getPlayer()->getXpos());
             game->getPlayer()->getCurrentPos()->setY(game->getPlayer()->getYpos());
 
-            game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos()+moveX, game->getPlayer()->getYpos());
-            game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos(), game->getPlayer()->getYpos()+moveY);
+            game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos()+moveX, game->getPlayer()->getYpos()+moveY);
 
             if (this->collisonMur())
                 game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getCurrentPos()->x(), game->getPlayer()->getCurrentPos()->y());
         }
-    }
-
+    } */
 }
 
-void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event ){
-    this->lastMousePosX = event->scenePos().x();
-    this->lastMousePosY = event->scenePos().y();
+void Scene::keyReleaseEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Z && !event->isAutoRepeat())
+    {
+       this->mvt->replace(0, false);
+    }
+    if (event->key() == Qt::Key_S && !event->isAutoRepeat())
+    {
+        this->mvt->replace(1, false);
+    }
+    if (event->key() == Qt::Key_Q && !event->isAutoRepeat())
+    {
+        this->mvt->replace(2, false);
+    }
+    if (event->key() == Qt::Key_D && !event->isAutoRepeat())
+    {
+      this->mvt->replace(3, false);
+    }
+}
 
-    qreal mouseRelativeX = event->scenePos().x() - game->getPlayer()->getXpos();
-    qreal mouseRelativeY = event->scenePos().y() - game->getPlayer()->getYpos();
+void Scene::updateOrientation()
+{
+
+
+    qreal mouseRelativeX = this->lastMousePosX - game->getPlayer()->getXpos();
+    qreal mouseRelativeY = this->lastMousePosY - game->getPlayer()->getYpos();
     qreal angle = M_PI;
 
     if((mouseRelativeX > 0) && (mouseRelativeY >= 0))
@@ -104,27 +158,19 @@ void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event ){
 
 }
 
-void Scene::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
+void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event )
 {
-    /*
     this->lastMousePosX = event->scenePos().x();
     this->lastMousePosY = event->scenePos().y();
-    */
+    this->updateOrientation();
+}
+
+void Scene::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
+{
     qreal playerX = game->getPlayer()->getXpos();
     qreal playerY = game->getPlayer()->getYpos();
 
     Barrel* barrel= new Barrel(":/resources/resources/barrel.png", playerX, playerY, event->scenePos(), this, this->game->getPlayer());
-    /*
-    Item* barrel = new Item(":/resources/resources/barrel.png", playerX,playerY, this);
-    this->barrelVector->append(barrel);
-
-    BarrelIntel* barrelIntel = new BarrelIntel(barrel, this->game->getPlayer(), this->lastMousePosX, this->lastMousePosY);
-    this->barrelIntelVector->append(barrelIntel);
-
-    this->barrelTimer->append(new QTimer());
-    connect(this->barrelTimer->last(), SIGNAL(timeout()), this->barrelIntelVector->last(), SLOT(run()));
-    this->barrelTimer->last()->start(30);
-    */
 }
 
 void Scene::createView()
@@ -161,10 +207,8 @@ bool Scene::collisonMur()
 {
     for (int i = 0; i < game->getMap()->getBackground()->size(); ++i)
     {
-        //qDebug() << game->getMap()->getBackground()->at(i)->getStr();
         if (game->getMap()->getBackground()->at(i)->getStr() == "Mur")
         {
-            //qDebug() << "Test colliding item";
             if (game->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(game->getMap()->getBackground()->at(i)->getSprite()->getPixmapItem()))
             {
                 qDebug() << "COLLISION AVEC UN MUR";
