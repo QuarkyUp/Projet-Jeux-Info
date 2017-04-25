@@ -5,6 +5,7 @@
 Element::Element(QString id, qreal x, qreal y)
 {
     this->orientation = "";
+    this->id = id;
 
     if(id == "Sol")
         this->sprite = new Sprite(":/resources/resources/sand.png", x, y);
@@ -15,6 +16,8 @@ Element::Element(QString id, qreal x, qreal y)
 Element::Element(QString id, qreal x, qreal y, QString orientation)
 {
     this->orientation = orientation;
+    this->id = id;
+
     if(id == "Porte")
     {
         if(this->orientation == "Haut")

@@ -46,7 +46,6 @@ void Map::createMap()
             int random_x;
             random_x = rand() % 100;
             this->background->at(i)->append(new Element("Sol", i*PIXEL_SIZE, j*PIXEL_SIZE));
-
             if(i == 0 && (j == 15 || j == 14 || j == 16))
                 this->background->at(i)->replace(j,new Element("Porte", i*PIXEL_SIZE, j*PIXEL_SIZE, "Gauche"));
             else if(i == HEIGH-2 && (j == 15 || j == 14 || j == 16))
@@ -57,49 +56,32 @@ void Map::createMap()
                 this->background->at(i)->replace(j,new Element("Porte", i*PIXEL_SIZE, j*PIXEL_SIZE, "Bas"));
             else if (i == 0 || i == HEIGH-2 || j == 0 || j == WIDTH-2)
                 this->background->at(i)->replace(j,new Element("Mur", i*PIXEL_SIZE, j*PIXEL_SIZE));
-
-            /**
-            //Les portes et les murs s'affiches en transparence par dessus le sol
-            //gauche
-            if(i == 0 && (j == 15 || j == 14 || j == 16))
-            {
-                this->background->at(i)->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "gauche"));
-                this->background->at(i)->last()->setStr("Porte");
-            }
-            //droite
-            else if (i == HEIGH-2 && (j == 15 || j == 14 || j == 16))
-            {
-                this->background->at(i)->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "droite"));
-                this->background->at(i)->last()->setStr("Porte");
-            }
-            //haut
-            else if ((i == 13 || i == 14 || i == 15) && j == 0)
-            {
-                this->background->at(i)->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "haut"));
-                this->background->at(i)->last()->setStr("Porte");
-            }
-            //bas
-            else if ((i == 13 || i == 14 || i == 15) && j==WIDTH-2)
-            {
-                this->background->at(i)->append(new Porte(i*PIXEL_SIZE, j*PIXEL_SIZE, "bas"));
-                this->background->at(i)->last()->setStr("Porte");
-            }
-            //Obstacles
-            else if (i == 0 || i == HEIGH-2 || j == 0 || j == WIDTH-2)
-            {
-                this->background->at(i)->append(new Mur(i*PIXEL_SIZE, j*PIXEL_SIZE));
-                this->background->at(i)->last()->setStr("Mur");
-            }
-            // Trouver une meilleure seed pour avoir des mur/obstacle aléatoire
-
-
-            else if (random_x < 15 && i > 3 && j > 3 && i < HEIGH - 3 && j < WIDTH - 3)
-            {
-                this->background->at(i)->append(new Mur(i*PIXEL_SIZE, j*PIXEL_SIZE));
-//                this->background->last()->setStr("Mur");
-            }
-**/
         }
+    }
+    generateObstacle();
+
+}
+
+void Map::generateObstacle()
+{
+    srand (time(NULL));
+    for(int i = 0; i < 30*30; i++)
+    {
+        int randomX = rand()%(25) + 3;
+        int randomY= rand()%(25) + 3;;
+        bool isOk = true;
+
+        for (int i = randomX - 3; i < randomX + 3; i++){
+            if(!isOk)
+                break;
+            for (int j = randomY - 3; j < randomY + 3; j++)
+                if(this->background->at(i)->at(j)->getId()=="Mur"||this->background->at(i)->at(j)->getId()=="Porte"){
+                    isOk = false;
+                    break;
+                }
+        }
+        if(isOk)
+            this->background->at(randomX)->replace(randomY,new Element("Mur", randomX*PIXEL_SIZE, randomY*PIXEL_SIZE));
     }
 }
 

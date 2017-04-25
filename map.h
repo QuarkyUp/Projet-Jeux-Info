@@ -32,6 +32,7 @@ private:
     QVector<QVector<Element*>*>* background;
 
     static Map* instance;
+    void generateObstacle();
 };
 
 #endif // MAP_H
