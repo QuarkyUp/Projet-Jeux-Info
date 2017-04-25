@@ -11,6 +11,7 @@
 #include "player.h"
 #include "ennemi.h"
 #include "ennemyintel.h"
+#include "croco.h"
 
 
 class Game: public QObject

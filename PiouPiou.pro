@@ -15,32 +15,28 @@ TEMPLATE = app
 SOURCES += main.cpp \
     map.cpp \
     player.cpp \
-    ennemi.cpp \
     element.cpp \
     mur.cpp \
     sol.cpp \
     porte.cpp \
-    item.cpp \
     game.cpp \
     sprite.cpp \
     scene.cpp \
-    ennemyintel.cpp \
-    barrelintel.cpp
+    croco.cpp \
+    barrel.cpp
 
 HEADERS  += \
     map.h \
     player.h \
-    ennemi.h \
     element.h \
     mur.h \
     sol.h \
     porte.h \
-    item.h \
     game.h \
     sprite.h \
     scene.h \
-    ennemyintel.h \
-    barrelintel.h
+    croco.h \
+    barrel.h
 
 FORMS    +=
 

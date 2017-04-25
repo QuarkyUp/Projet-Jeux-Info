@@ -3,7 +3,6 @@
 #include <math.h>
 #include <QTransform>
 
-
 Scene::Scene()
 {
     this->setSceneRect(0, 0 , GAME_SIZE, GAME_SIZE);
@@ -109,12 +108,15 @@ void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event ){
 
 void Scene::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
 {
+    /*
     this->lastMousePosX = event->scenePos().x();
     this->lastMousePosY = event->scenePos().y();
+    */
     qreal playerX = game->getPlayer()->getXpos();
     qreal playerY = game->getPlayer()->getYpos();
 
-
+    Barrel* barrel= new Barrel(":/resources/resources/barrel.png", playerX, playerY, event->scenePos(), this, this->game->getPlayer());
+    /*
     Item* barrel = new Item(":/resources/resources/barrel.png", playerX,playerY, this);
     this->barrelVector->append(barrel);
 
@@ -124,6 +126,7 @@ void Scene::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
     this->barrelTimer->append(new QTimer());
     connect(this->barrelTimer->last(), SIGNAL(timeout()), this->barrelIntelVector->last(), SLOT(run()));
     this->barrelTimer->last()->start(30);
+    */
 }
 
 void Scene::createView()

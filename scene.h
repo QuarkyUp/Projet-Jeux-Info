@@ -10,6 +10,7 @@
 #include "item.h"
 #include "barrelintel.h"
 #include <QTimer>
+#include "barrel.h"
 
 #define GAME_SIZE 31*31
 
@@ -25,7 +26,7 @@ public:
     void createView();
     void createGame();
     bool collisonMur();
-    bool collisionPLayerEnnemi();
+    bool collisionPlayerEnnemi();
     bool collisionItemEnnemi();
 
     /** GETTER **/
