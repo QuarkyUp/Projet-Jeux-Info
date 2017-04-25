@@ -1,6 +1,5 @@
 #include "croco.h"
 
-
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 
 Croco::Croco(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene *scene, Player* player)
@@ -19,7 +18,6 @@ Croco::~Croco()
 {
     removeCroco();
     disconnect(this->timer);
-    delete(this->timer);
 }
 
 /** ---------- METHODS ---------- **/
@@ -83,8 +81,8 @@ void Croco::moveTowardsPlayer()
     }
 }
 
-
 /** ---------- SLOTS ---------- **/
+
 void Croco::run()
 {
     this->moveTowardsPlayer();

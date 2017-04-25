@@ -6,9 +6,7 @@
 Scene::Scene()
 {
     this->setSceneRect(0, 0 , GAME_SIZE, GAME_SIZE);
-    this->barrelIntelVector = new QVector<BarrelIntel*>();
-    this->barrelVector = new QVector<Item*>();
-    this->barrelTimer = new QVector<QTimer*>();
+
 }
 
 void Scene::start()
@@ -159,11 +157,6 @@ Game* Scene::getGame()
     return this->game;
 }
 
-QVector<Item *> *Scene::getBarrelVector()
-{
-    return this->barrelVector;
-}
-
 bool Scene::collisonMur()
 {
     for (int i = 0; i < game->getMap()->getBackground()->size(); ++i)
@@ -180,30 +173,5 @@ bool Scene::collisonMur()
         }
     }
 
-    return false;
-}
-
-bool Scene::collisionItemEnnemi()
-{
-    for (int i = 0; i < getBarrelVector()->size(); ++i)
-    {
-        if (getBarrelVector()->at(i)->getSprite()->getPixmapItem()->collidesWithItem(this->game->getEnnemiVector()->at(i)->getSprite()->getPixmapItem()))
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool Scene::collisionPlayerEnnemi()
-{
-    for (int i = 0; i < game->getEnnemiVector()->size(); ++i)
-    {
-        if (game->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(this->game->getEnnemiVector()->at(i)->getSprite()->getPixmapItem()))
-        {
-            qDebug() << "COLLISION AVEC UN ENNEMI";
-            return true;
-        }
-    }
     return false;
 }

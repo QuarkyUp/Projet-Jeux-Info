@@ -9,8 +9,6 @@
 
 #include "map.h"
 #include "player.h"
-#include "ennemi.h"
-#include "ennemyintel.h"
 #include "croco.h"
 
 
@@ -29,15 +27,11 @@ public:
     /** GETTER **/
     Map* getMap();
     Player* getPlayer();
-    QVector<Ennemi*>* getEnnemiVector();
 
 private:
 
     Map* map;
     Player* myPlayer;
-    QVector<Ennemi*>* ennemiVector;
-    QVector<EnnemyIntel*>* ennemiIntelVector;
-    QVector<QTimer*>* ennemiTimer;
 };
 
 #endif // GAME_H

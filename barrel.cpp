@@ -18,7 +18,7 @@ Barrel::~Barrel()
 {
     removeBarrel();
     disconnect(this->timer);
-    delete(this->timer);
+ //   delete(this->timer);
 }
 
 /** ---------- METHODS ---------- **/

@@ -7,8 +7,6 @@
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
 #include "game.h"
-#include "item.h"
-#include "barrelintel.h"
 #include <QTimer>
 #include "barrel.h"
 
@@ -26,13 +24,10 @@ public:
     void createView();
     void createGame();
     bool collisonMur();
-    bool collisionPlayerEnnemi();
-    bool collisionItemEnnemi();
 
     /** GETTER **/
     QGraphicsView* getView();
     Game* getGame();
-    QVector<Item*>* getBarrelVector();
 
     void mouseMoveEvent  (QGraphicsSceneMouseEvent * event );
 
@@ -42,10 +37,6 @@ private:
     Game* game;
     qreal lastMousePosX;
     qreal lastMousePosY;
-
-    QVector<BarrelIntel*>* barrelIntelVector;
-    QVector<Item*>* barrelVector;
-    QVector<QTimer*>* barrelTimer;
 };
 
 #endif // SCENE_H
