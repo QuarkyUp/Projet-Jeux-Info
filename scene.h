@@ -19,23 +19,22 @@ class Scene : public QGraphicsScene
 public:
     /** CONSTRUCTOR **/
     Scene();
+    ~Scene();
 
     /** METHODS **/
     void start();
-    void keyPressEvent(QKeyEvent* event);
-    void keyReleaseEvent(QKeyEvent* event);
     void createView();
     void createGame();
-    bool collisonMur();
     void updateOrientation();
+    bool collisonMur();
+    void keyPressEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent* event);
+    void mouseMoveEvent  (QGraphicsSceneMouseEvent * event );
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
 
     /** GETTER **/
     QGraphicsView* getView();
     Game* getGame();
-
-    void mouseMoveEvent  (QGraphicsSceneMouseEvent * event );
-
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
 
 public slots:
     void updateKey();

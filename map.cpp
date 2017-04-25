@@ -3,6 +3,7 @@
 
 Map* Map::instance;
 
+/** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 Map::Map()
 {
     this->background = new QVector<Element*>();
@@ -10,8 +11,10 @@ Map::Map()
 
 Map::~Map()
 {
-    delete this->background;
+    delete(this->background);
 }
+
+/** ---------- METHODS ---------- **/
 
 Map* Map::newInstance()
 {
@@ -19,7 +22,6 @@ Map* Map::newInstance()
         Map::instance = new Map();
     return Map::instance;
 }
-
 
 void Map::createMap()
 {
@@ -83,6 +85,8 @@ void Map::drawMap(QGraphicsScene* scene)
     for(int i = 0; i < this->background->size(); i++)
         this->background->at(i)->drawElement(scene);
 }
+
+/** ---------- GETTERS ---------- **/
 
 QVector<Element *> *Map::getBackground()
 {

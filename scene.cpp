@@ -3,7 +3,7 @@
 #include <QTransform>
 #include <cmath>
 
-
+/** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 Scene::Scene()
 {
     this->setSceneRect(0, 0 , GAME_SIZE, GAME_SIZE);
@@ -17,31 +17,12 @@ Scene::Scene()
     timer->start(15);
 
 }
-
-void Scene::updateKey()
+Scene::~Scene()
 {
-    if (this->mvt->at(0))
-    {
-        game->getPlayer()->moveUp();
-        this->updateOrientation();
-    }
-    if (this->mvt->at(1))
-    {
-        game->getPlayer()->moveDown();
-        this->updateOrientation();
-    }
-    if (this->mvt->at(2))
-    {
-        game->getPlayer()->moveLeft();
-        this->updateOrientation();
-    }
-
-    if (this->mvt->at(3))
-    {
-        game->getPlayer()->moveRight();
-        this->updateOrientation();
-    }
+    delete(this->mvt);
 }
+
+/** ---------- METHODS ---------- **/
 
 void Scene::start()
 {
@@ -49,6 +30,89 @@ void Scene::start()
     this->createGame();
 }
 
+void Scene::createView()
+{
+    this->view = new QGraphicsView(this);
+
+    /** OBLIGER DE FAIRE +2 PIXEL SINON LES SCROLLBARS APPARAISSENT **/
+    this->view->setFixedSize(this->width()+2, this->height()+2);
+    this->view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    this->view->setMouseTracking(true);
+
+    view->show();
+}
+
+void Scene::createGame()
+{
+    this->game = new Game();
+    this->game->generateMap(this);
+}
+
+void Scene::updateOrientation()
+{
+
+
+    qreal mouseRelativeX = this->lastMousePosX - game->getPlayer()->getXpos();
+    qreal mouseRelativeY = this->lastMousePosY - game->getPlayer()->getYpos();
+    qreal angle = M_PI;
+
+    if((mouseRelativeX > 0) && (mouseRelativeY >= 0))
+    {
+        angle = atan(mouseRelativeY / mouseRelativeX);
+    }
+    else if ((mouseRelativeX > 0) && (mouseRelativeY < 0))
+    {
+        angle = atan(mouseRelativeY / mouseRelativeX) + 2*M_PI;
+    }
+    else if (mouseRelativeX < 0)
+    {
+        angle = atan(mouseRelativeY / mouseRelativeX) + M_PI;
+    }
+    else if ((mouseRelativeX == 0) && (mouseRelativeY > 0))
+    {
+        angle = M_PI/2;
+    }
+    else if ((mouseRelativeX == 0) && (mouseRelativeY < 0))
+    {
+        angle = 3*(M_PI/2);
+    }
+
+    QPixmap rotate(game->getPlayer()->getSprite()->getPixmap()->size());
+    rotate.fill(QColor::fromRgb(0, 0, 0, 0));
+    QPainter p(&rotate);
+    p.setBackgroundMode(Qt::TransparentMode);
+    p.setRenderHint(QPainter::Antialiasing);
+    p.setRenderHint(QPainter::SmoothPixmapTransform);
+    p.setRenderHint(QPainter::HighQualityAntialiasing);
+    p.translate(rotate.size().width() / 2, rotate.size().height() / 2);
+    p.rotate(angle*(180/M_PI) +90);
+    p.translate(-rotate.size().width() / 2, -rotate.size().height() / 2);
+
+    p.drawPixmap(0, 0, *game->getPlayer()->getSprite()->getPixmap());
+    p.end();
+
+    game->getPlayer()->getSprite()->getPixmapItem()->setPixmap(rotate);
+
+}
+
+bool Scene::collisonMur()
+{
+    for (int i = 0; i < game->getMap()->getBackground()->size(); ++i)
+    {
+        if (game->getMap()->getBackground()->at(i)->getStr() == "Mur")
+        {
+            if (game->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(game->getMap()->getBackground()->at(i)->getSprite()->getPixmapItem()))
+            {
+                qDebug() << "COLLISION AVEC UN MUR";
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
 
 void Scene::keyPressEvent(QKeyEvent* event)
 {
@@ -111,53 +175,6 @@ void Scene::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void Scene::updateOrientation()
-{
-
-
-    qreal mouseRelativeX = this->lastMousePosX - game->getPlayer()->getXpos();
-    qreal mouseRelativeY = this->lastMousePosY - game->getPlayer()->getYpos();
-    qreal angle = M_PI;
-
-    if((mouseRelativeX > 0) && (mouseRelativeY >= 0))
-    {
-        angle = atan(mouseRelativeY / mouseRelativeX);
-    }
-    else if ((mouseRelativeX > 0) && (mouseRelativeY < 0))
-    {
-        angle = atan(mouseRelativeY / mouseRelativeX) + 2*M_PI;
-    }
-    else if (mouseRelativeX < 0)
-    {
-        angle = atan(mouseRelativeY / mouseRelativeX) + M_PI;
-    }
-    else if ((mouseRelativeX == 0) && (mouseRelativeY > 0))
-    {
-        angle = M_PI/2;
-    }
-    else if ((mouseRelativeX == 0) && (mouseRelativeY < 0))
-    {
-        angle = 3*(M_PI/2);
-    }
-
-    QPixmap rotate(game->getPlayer()->getSprite()->getPixmap()->size());
-    rotate.fill(QColor::fromRgb(0, 0, 0, 0));
-    QPainter p(&rotate);
-    p.setBackgroundMode(Qt::TransparentMode);
-    p.setRenderHint(QPainter::Antialiasing);
-    p.setRenderHint(QPainter::SmoothPixmapTransform);
-    p.setRenderHint(QPainter::HighQualityAntialiasing);
-    p.translate(rotate.size().width() / 2, rotate.size().height() / 2);
-    p.rotate(angle*(180/M_PI) +90);
-    p.translate(-rotate.size().width() / 2, -rotate.size().height() / 2);
-
-    p.drawPixmap(0, 0, *game->getPlayer()->getSprite()->getPixmap());
-    p.end();
-
-    game->getPlayer()->getSprite()->getPixmapItem()->setPixmap(rotate);
-
-}
-
 void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event )
 {
     this->lastMousePosX = event->scenePos().x();
@@ -173,24 +190,31 @@ void Scene::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
     Barrel* barrel= new Barrel(":/resources/resources/barrel.png", playerX, playerY, event->scenePos(), this, this->game->getPlayer());
 }
 
-void Scene::createView()
+/** ---------- SLOTS ---------- **/
+
+void Scene::updateKey()
 {
-    this->view = new QGraphicsView(this);
+    if (this->mvt->at(0))
+    {
+        game->getPlayer()->moveUp();
+        this->updateOrientation();
+    }
+    if (this->mvt->at(1))
+    {
+        game->getPlayer()->moveDown();
+        this->updateOrientation();
+    }
+    if (this->mvt->at(2))
+    {
+        game->getPlayer()->moveLeft();
+        this->updateOrientation();
+    }
 
-    /** OBLIGER DE FAIRE +2 PIXEL SINON LES SCROLLBARS APPARAISSENT **/
-    this->view->setFixedSize(this->width()+2, this->height()+2);
-    this->view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    this->view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    this->view->setMouseTracking(true);
-
-    view->show();
-}
-
-void Scene::createGame()
-{
-    this->game = new Game();
-    this->game->generateMap(this);
+    if (this->mvt->at(3))
+    {
+        game->getPlayer()->moveRight();
+        this->updateOrientation();
+    }
 }
 
 QGraphicsView* Scene::getView()
@@ -201,21 +225,4 @@ QGraphicsView* Scene::getView()
 Game* Scene::getGame()
 {
     return this->game;
-}
-
-bool Scene::collisonMur()
-{
-    for (int i = 0; i < game->getMap()->getBackground()->size(); ++i)
-    {
-        if (game->getMap()->getBackground()->at(i)->getStr() == "Mur")
-        {
-            if (game->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(game->getMap()->getBackground()->at(i)->getSprite()->getPixmapItem()))
-            {
-                qDebug() << "COLLISION AVEC UN MUR";
-                return true;
-            }
-        }
-    }
-
-    return false;
 }

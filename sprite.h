@@ -8,13 +8,16 @@
 class Sprite
 {
 public:
+    /** CONSTRUCTOR **/
     Sprite(QString, qreal, qreal);
+
+
     QPixmap* getPixmap();
     QGraphicsPixmapItem* getPixmapItem();
 
-    QGraphicsPixmapItem* pixmapItem;
 
 private:
+    QGraphicsPixmapItem* pixmapItem;
     QString path;
     QPixmap* pixmap;
 };

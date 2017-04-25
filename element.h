@@ -6,11 +6,18 @@
 class Element
 {
 public:
+    /** CONSTRUCTOR **/
     Element();
+
+    /** METHODS **/
     void drawElement(QGraphicsScene* scene);
+
+    /** GETTERS **/
     QString getStr();
-    void setStr(QString str);
     Sprite* getSprite();
+
+    /** SETTERS **/
+    void setStr(QString str);
 
 protected:
     Sprite* sprite;

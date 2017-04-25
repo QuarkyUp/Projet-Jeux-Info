@@ -10,15 +10,8 @@ public:
     /** CONSTRUCTOR **/
     Mur(qreal, qreal);
 
-    /** GETTER **/
-    Sprite* getSprite();
-
-    void drawMur(QGraphicsScene* scene);
-
+    /** GETTERS **/
     QString className();
-
-private:
-    Sprite* sprite;
 };
 
 #endif // MUR_H

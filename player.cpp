@@ -41,38 +41,21 @@ qreal Player::getYpos()
 void Player::moveUp()
 {
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos(), this->getYpos()-5);
-
-    /*this->getSprite()->getPixmap()->load(":/resources/resources/playerUp.png");
-    this->getSprite()->getPixmapItem()->setPixmap(*this->getSprite()->getPixmap());
-    */
 }
 
 void Player::moveDown()
 {
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos(), this->getYpos()+5);
-    /*
-    this->getSprite()->getPixmap()->load(":/resources/resources/playerDown.png");
-    this->getSprite()->getPixmapItem()->setPixmap(*this->getSprite()->getPixmap());
-    */
 }
 
 void Player::moveLeft()
 {
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos()-5, this->getYpos());
-    /*
-    this->getSprite()->getPixmap()->load(":/resources/resources/playerLeft.png");
-    this->getSprite()->getPixmapItem()->setPixmap(*this->getSprite()->getPixmap());
-    */
 }
 
 void Player::moveRight()
 {
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos() + 5, this->getYpos());
-
-    /*
-    this->getSprite()->getPixmap()->load(":/resources/resources/playerRight.png");
-    this->getSprite()->getPixmapItem()->setPixmap(*this->getSprite()->getPixmap());
-    */
 }
 
 QPoint* Player::getCurrentPos()

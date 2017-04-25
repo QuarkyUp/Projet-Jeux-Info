@@ -29,7 +29,6 @@ public:
     Player* getPlayer();
 
 private:
-
     Map* map;
     Player* myPlayer;
 };
