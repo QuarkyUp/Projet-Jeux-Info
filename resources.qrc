@@ -2,10 +2,6 @@
     <qresource prefix="/resources">
         <file>resources/mur.png</file>
         <file>resources/sol.png</file>
-        <file>resources/playerLeft.png</file>
-        <file>resources/playerRight.png</file>
-        <file>resources/playerDown.png</file>
-        <file>resources/playerUp.png</file>
         <file>resources/sand.png</file>
         <file>resources/doorDown.png</file>
         <file>resources/doorLeft.png</file>
@@ -19,5 +15,10 @@
         <file>resources/ennemiUp.png</file>
         <file>resources/donkeyUp.png</file>
         <file>resources/barrel.png</file>
+        <file>resources/obstacleOld.png</file>
+        <file>resources/doorDownOld.png</file>
+        <file>resources/doorLeftOld.png</file>
+        <file>resources/doorRightOld.png</file>
+        <file>resources/doorUpOld.png</file>
     </qresource>
 </RCC>

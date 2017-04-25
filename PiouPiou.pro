@@ -16,9 +16,6 @@ SOURCES += main.cpp \
     map.cpp \
     player.cpp \
     element.cpp \
-    mur.cpp \
-    sol.cpp \
-    porte.cpp \
     game.cpp \
     sprite.cpp \
     scene.cpp \
@@ -29,9 +26,6 @@ HEADERS  += \
     map.h \
     player.h \
     element.h \
-    mur.h \
-    sol.h \
-    porte.h \
     game.h \
     sprite.h \
     scene.h \

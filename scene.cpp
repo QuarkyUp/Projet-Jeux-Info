@@ -97,22 +97,26 @@ void Scene::updateOrientation()
 
 }
 
+/*
 bool Scene::collisonMur()
 {
-    for (int i = 0; i < game->getMap()->getBackground()->size(); ++i)
+    for (int i = 0; i < 31; ++i)
     {
-        if (game->getMap()->getBackground()->at(i)->getStr() == "Mur")
-        {
-            if (game->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(game->getMap()->getBackground()->at(i)->getSprite()->getPixmapItem()))
+        for(int j = 0; j < 31; ++j){
+            if (game->getMap()->getBackground()->at(i)->at(j)->getStr() == "Mur")
             {
-                qDebug() << "COLLISION AVEC UN MUR";
-                return true;
+                if (game->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(game->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
+                {
+                    qDebug() << "COLLISION AVEC UN MUR";
+                    return true;
+                }
             }
         }
     }
 
     return false;
 }
+*/
 
 void Scene::keyPressEvent(QKeyEvent* event)
 {

@@ -7,21 +7,21 @@ class Element
 {
 public:
     /** CONSTRUCTOR **/
-    Element();
+    Element(QString, qreal, qreal);
+    Element(QString, qreal, qreal, QString);
 
     /** METHODS **/
     void drawElement(QGraphicsScene* scene);
 
     /** GETTERS **/
-    QString getStr();
+    QString getId();
+    QString getOrientation();
     Sprite* getSprite();
-
-    /** SETTERS **/
-    void setStr(QString str);
 
 protected:
     Sprite* sprite;
-    QString str;
+    QString id;
+    QString orientation;
 
 };
 

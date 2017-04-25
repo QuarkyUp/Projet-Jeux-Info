@@ -2,10 +2,6 @@
 #define MAP_H
 
 #include "element.h"
-#include "porte.h"
-#include "mur.h"
-#include "sol.h"
-
 #include <QVector>
 #include <QGraphicsScene>
 #include <QTime>
@@ -30,10 +26,10 @@ public:
     void drawMap(QGraphicsScene* scene);
 
     /** GETTER **/
-    QVector<Element*>* getBackground();
+    QVector<QVector<Element*>*>* getBackground();
 
 private:
-    QVector<Element*>* background;
+    QVector<QVector<Element*>*>* background;
 
     static Map* instance;
 };
