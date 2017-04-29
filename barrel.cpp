@@ -1,7 +1,7 @@
 #include "barrel.h"
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
-Barrel::Barrel(QString imagePath, qreal coordX, qreal coordY, QPointF mousePos, QGraphicsScene *scene, Player *player)
+Barrel::Barrel(QString imagePath, qreal coordX, qreal coordY, QPointF mousePos, Scene *scene, Player *player)
 {
     this->sprite = new Sprite(imagePath, coordX, coordY);
     this->scene = scene;
@@ -88,7 +88,7 @@ void Barrel::moveTowardsMouse()
         changeRotation();
         this->rotation = false;
     }
-    if(dist > 10)
+    if(dist > 10 && !this->isCollidingWith(this->scene->getGame()->getMap()))
     {
         changeRotation();
         this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+moveX, this->getYpos()+moveY);
@@ -97,6 +97,23 @@ void Barrel::moveTowardsMouse()
     {
         delete(this);
     }
+}
+
+bool Barrel::isCollidingWith(Map* map)
+{
+    for (int i = 0; i < map->getBackground()->size(); ++i)
+    {
+        for (int j =0; j < map->getBackground()->at(i)->size(); ++j)
+        {
+            if (map->getBackground()->at(i)->at(j)->getId() == "Mur" ||
+                map->getBackground()->at(i)->at(j)->getId() == "Porte")
+            {
+                if (this->getSprite()->getPixmapItem()->collidesWithItem(map->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
+                    return true;
+            }
+        }
+    }
+    return false;
 }
 
 /** ---------- SLOTS ---------- **/
@@ -122,4 +139,3 @@ Sprite* Barrel::getSprite()
 {
     return this->sprite;
 }
-

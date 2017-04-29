@@ -1,16 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QString>
-#include <QTimer>
-#include <QObject>
-
 #include "map.h"
 #include "player.h"
-#include "croco.h"
-
 
 class Game: public QObject
 {
@@ -19,10 +11,9 @@ public:
     Game();
 
     /** METHODS **/
-
-    void generateMap(QGraphicsScene* scene);
-
+    void generateMap(QGraphicsScene*);
     void sendKeyboardEvent(QString);
+    bool collisionPlayerEnnemy();
 
     /** GETTER **/
     Map* getMap();

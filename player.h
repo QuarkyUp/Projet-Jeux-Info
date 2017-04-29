@@ -2,10 +2,10 @@
 #define PLAYER_H
 
 #include <QGraphicsScene>
-#include <QDebug>
 #include <QGraphicsView>
 
 #include "sprite.h"
+#include "map.h"
 
 class Player
 {
@@ -18,10 +18,13 @@ public:
       qreal getXpos();
       qreal getYpos();
 
-      void moveUp();
-      void moveDown();
-      void moveLeft();
-      void moveRight();
+      void moveUp(Map*);
+      void moveDown(Map*);
+      void moveLeft(Map*);
+      void moveRight(Map*);
+      void updatePos();
+
+      bool isCollidingWith(Map*);
 
     /** GETTERS **/
     Sprite* getSprite();

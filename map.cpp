@@ -6,15 +6,6 @@ Map* Map::instance;
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 Map::Map()
 {
-    /*
-    this->background = new QVector<QVector<Element*>*>();
-    this->background->resize(HEIGH);
-    for(int i = 0; i < HEIGH; i++){
-        //this->background->at(i)->resize(WIDTH);
-        for(int j = 0; j < WIDTH; j++)
-            this->background->at(i)->append(NULL);
-    }
-    */
     this->background = new QVector<QVector<Element*>*>();
     for (int i = 0; i < HEIGH; ++i)
         this->background->append(new QVector<Element*>());
@@ -85,7 +76,7 @@ void Map::generateObstacle()
     }
 }
 
-void Map::drawMap(QGraphicsScene* scene)
+void Map::drawMap(QGraphicsScene *scene)
 {
 
     for(int i = 0; i < 31; i++){

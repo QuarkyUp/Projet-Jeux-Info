@@ -2,9 +2,10 @@
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 
-Croco::Croco(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene *scene, Player* player)
+Croco::Croco(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene, Player* player)
 {
     this->crocoSprite = new Sprite(imagePath, coordX, coordY);
+    this->current_position = new QPoint(this->getSprite()->getPixmapItem()->sceneBoundingRect().x(), this->getSprite()->getPixmapItem()->sceneBoundingRect().y());
     this->player = player;
     this->scene = scene;
     this->timer = new QTimer();
@@ -76,11 +77,39 @@ void Croco::moveTowardsPlayer()
 
     if(dist > 60)
     {
-        changeRotation();
-        this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+moveX, this->getYpos()+moveY);
+        this->changeRotation();
+        this->move(moveX, moveY);
     }
 }
 
+bool Croco::isCollidingWith(Map* map)
+{
+    for (int i = 0; i < map->getBackground()->size(); ++i)
+    {
+        for (int j =0; j < map->getBackground()->at(i)->size(); ++j)
+        {
+            if (map->getBackground()->at(i)->at(j)->getId() == "Mur" ||
+                map->getBackground()->at(i)->at(j)->getId() == "Porte")
+            {
+                if (this->getSprite()->getPixmapItem()->collidesWithItem(map->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+
+void Croco::updatePos()
+{
+    this->current_position->setX(this->getXpos());
+    this->current_position->setY(this->getYpos());
+}
+
+void Croco::move(double x, double y)
+{
+    this->updatePos();
+    this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+x, this->getYpos()+y);
+}
 /** ---------- SLOTS ---------- **/
 
 void Croco::run()

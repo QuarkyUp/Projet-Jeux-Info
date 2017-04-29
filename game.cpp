@@ -2,6 +2,8 @@
 
 #include <QDebug>
 #include <QThread>
+#include <QTimer>
+#include "croco.h"
 
 Game::Game()
 {
@@ -28,15 +30,20 @@ Player* Game::getPlayer()
     return this->myPlayer;
 }
 
-void Game::sendKeyboardEvent(QString string)
+bool Game::collisionPlayerEnnemy()
 {
-    if (string == "UP")
-        this->getPlayer()->moveUp();
-    else if (string == "DOWN")
-        this->getPlayer()->moveDown();
-    else if (string == "LEFT")
-        this->getPlayer()->moveLeft();
-    else if (string == "RIGHT")
-        this->getPlayer()->moveRight();
+    for (int i = 0; i < this->getMap()->getBackground()->size(); ++i)
+    {
+        for (int j =0; j < this->getMap()->getBackground()->at(i)->size(); ++j)
+        {
+            if (this->getMap()->getBackground()->at(i)->at(j)->getId() == "Mur" ||
+                this->getMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
+            {
+                if (this->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(this->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
+                    return true;
+            }
+        }
+    }
+    return false;
 }
 

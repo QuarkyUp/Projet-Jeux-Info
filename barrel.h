@@ -3,7 +3,7 @@
 
 #include "sprite.h"
 #include "player.h"
-#include <QGraphicsScene>
+#include "scene.h"
 #include <QPointF>
 #include <cmath>
 #include <QTimer>
@@ -14,7 +14,7 @@ class Barrel : public QObject
 
 public:
     /** CONSTRUCTOR / DESTRUCTOR **/
-    Barrel(QString imagePath, qreal coordX, qreal coordY, QPointF mousePos, QGraphicsScene* scene, Player* player);
+    Barrel(QString imagePath, qreal coordX, qreal coordY, QPointF mousePos, Scene* scene, Player* player);
     ~Barrel();
 
     /** METHODS **/
@@ -22,6 +22,8 @@ public:
     void removeBarrel();
     void changeRotation();
     void moveTowardsMouse();
+
+    bool isCollidingWith(Map*);
 
     /** GETTERS **/
     qreal getXpos();
@@ -33,7 +35,7 @@ public slots:
 
 private:
     Sprite* sprite;
-    QGraphicsScene* scene;
+    Scene* scene;
     Player* player;
     QPointF mousePos;
     QTimer* timer;

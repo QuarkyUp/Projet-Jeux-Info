@@ -1,4 +1,5 @@
 #include "element.h"
+#include <QGraphicsScene>
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 

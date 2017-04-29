@@ -1,12 +1,12 @@
 #ifndef CROCO_H
 #define CROCO_H
 
-#include <QGraphicsScene>
 #include <QTimer>
 #include <cmath>
-
+#include "scene.h"
 #include "sprite.h"
 #include "player.h"
+
 
 class Croco : public QObject
 {
@@ -22,6 +22,10 @@ public:
     void removeCroco();
     void changeRotation();
     void moveTowardsPlayer();
+    void updatePos();
+    void move(double, double);
+
+    bool isCollidingWith(Map*);
 
     /** GETTERS **/
     qreal getXpos();
@@ -37,6 +41,7 @@ private:
     Player* player;
     QGraphicsScene* scene;
     QTimer* timer;
+    QPoint* current_position;
 };
 
 #endif // CROCO_H

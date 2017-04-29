@@ -2,6 +2,8 @@
 #include <QDebug>
 #include <QTransform>
 #include <cmath>
+#include "barrel.h"
+#include "game.h"
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 Scene::Scene()
@@ -14,7 +16,7 @@ Scene::Scene()
 
     QTimer* timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(updateKey()));
-    timer->start(15);
+    timer->start(30);
 
 }
 Scene::~Scene()
@@ -97,27 +99,6 @@ void Scene::updateOrientation()
 
 }
 
-/*
-bool Scene::collisonMur()
-{
-    for (int i = 0; i < 31; ++i)
-    {
-        for(int j = 0; j < 31; ++j){
-            if (game->getMap()->getBackground()->at(i)->at(j)->getStr() == "Mur")
-            {
-                if (game->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(game->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
-                {
-                    qDebug() << "COLLISION AVEC UN MUR";
-                    return true;
-                }
-            }
-        }
-    }
-
-    return false;
-}
-*/
-
 void Scene::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Z && !event->isAutoRepeat())
@@ -198,27 +179,27 @@ void Scene::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
 
 void Scene::updateKey()
 {
-    if (this->mvt->at(0))
-    {
-        game->getPlayer()->moveUp();
-        this->updateOrientation();
-    }
-    if (this->mvt->at(1))
-    {
-        game->getPlayer()->moveDown();
-        this->updateOrientation();
-    }
-    if (this->mvt->at(2))
-    {
-        game->getPlayer()->moveLeft();
-        this->updateOrientation();
-    }
+        if (this->mvt->at(0))
+        {
+            this->game->getPlayer()->moveUp(this->getGame()->getMap());
+            this->updateOrientation();
+        }
+        if (this->mvt->at(1))
+        {
+            this->game->getPlayer()->moveDown(this->getGame()->getMap());
+            this->updateOrientation();
+        }
+        if (this->mvt->at(2))
+        {
+            this->game->getPlayer()->moveLeft(this->getGame()->getMap());
+            this->updateOrientation();
+        }
 
-    if (this->mvt->at(3))
-    {
-        game->getPlayer()->moveRight();
-        this->updateOrientation();
-    }
+        if (this->mvt->at(3))
+        {
+            this->game->getPlayer()->moveRight(this->getGame()->getMap());
+            this->updateOrientation();
+        }
 }
 
 QGraphicsView* Scene::getView()

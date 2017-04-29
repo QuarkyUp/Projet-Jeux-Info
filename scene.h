@@ -6,9 +6,8 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
-#include "game.h"
 #include <QTimer>
-#include "barrel.h"
+#include "game.h"
 
 #define GAME_SIZE 31*31
 

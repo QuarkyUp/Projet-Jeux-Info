@@ -1,6 +1,5 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
-#include <QGraphicsScene>
 #include "sprite.h"
 
 class Element
