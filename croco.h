@@ -5,6 +5,7 @@
 #include <QTimer>
 #include "scene.h"
 #include "player.h"
+#include "game.h"
 
 
 class Croco : public QObject
@@ -13,10 +14,11 @@ class Croco : public QObject
 
 public:
     /** CONSTRUCTOR / DESTRUCTOR **/
-    Croco(qreal coordX, qreal coordY, Scene* scene, Player* player);
+    Croco(Scene* scene);
     ~Croco();
 
     /** METHODS **/
+    void initialiseCrocoPosition();
     void drawCroco();
     void removeCroco();
     void changeRotation();
@@ -25,6 +27,7 @@ public:
     void move(double, double);
 
     bool isCollidingWith(Map*);
+    bool isCollidingWithPlayer();
 
     /** GETTERS **/
     qreal getXpos();

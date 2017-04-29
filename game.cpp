@@ -1,6 +1,6 @@
 #include "game.h"
 
-
+#include "qdebug.h"
 Game::Game(Scene* scene)
 {
     this->scene = scene;
@@ -18,7 +18,10 @@ void Game::generateMap()
     this->myPlayer = Player::newPlayer();
     this->drawPlayer();
 
-    Croco* croco = new Croco(100,100, this->scene, this->getPlayer());
+    for (int i = 0; i < 5; ++i)
+    {
+        new Croco(this->scene);
+    }
 }
 
 Map* Game::getMap()
@@ -31,22 +34,15 @@ Player* Game::getPlayer()
     return this->myPlayer;
 }
 
-bool Game::collisionPlayerEnnemy()
-{
-    for (int i = 0; i < this->getMap()->getBackground()->size(); ++i)
-    {
-        for (int j =0; j < this->getMap()->getBackground()->at(i)->size(); ++j)
-        {
-            if (this->getMap()->getBackground()->at(i)->at(j)->getId() == "Mur" ||
-                this->getMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
-            {
-                if (this->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(this->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
-                    return true;
-            }
-        }
-    }
-    return false;
-}
+//bool Game::collisionPlayerEnnemy()
+//{
+//    for (int i = 0; i < this->getMap()->getBackground()->size(); ++i)
+//        for (int j =0; j < this->getMap()->getBackground()->at(i)->size(); ++j)
+//            if (this->getMap()->getBackground()->at(i)->at(j)->getId() == "Mur" || this->getMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
+//                if (this->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(this->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
+//                    return true;
+//    return false;
+//}
 
 void Game::createMap()
 {
@@ -85,7 +81,6 @@ void Game::drawPlayer()
 
 void Game::createBarrel(QPointF *mousePos)
 {
-    Barrel* barrel= new Barrel(this->getPlayer()->getXpos(), this->getPlayer()->getYpos(), mousePos, this->scene, this->getPlayer());
-
+    new Barrel(mousePos, this->scene);
 }
 

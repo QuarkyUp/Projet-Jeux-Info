@@ -12,7 +12,7 @@ class Barrel : public QObject
 
 public:
     /** CONSTRUCTOR / DESTRUCTOR **/
-    Barrel(qreal coordX, qreal coordY, QPointF* mousePos, Scene* scene, Player* player);
+    Barrel(QPointF* mousePos, Scene* scene);
     ~Barrel();
 
     /** METHODS **/

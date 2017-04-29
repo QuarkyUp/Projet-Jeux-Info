@@ -1,16 +1,20 @@
 #include "croco.h"
 
+#include <QDebug>
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 
-Croco::Croco(qreal coordX, qreal coordY, Scene* scene, Player* player)
+Croco::Croco(Scene* scene)
 {
-    this->crocoSprite = new Sprite(":/resources/resources/ennemiUp.png", coordX, coordY);
-    this->current_position = new QPoint(this->getSprite()->getPixmapItem()->sceneBoundingRect().x(), this->getSprite()->getPixmapItem()->sceneBoundingRect().y());
-    this->player = player;
+    this->player = scene->getGame()->getPlayer();
     this->scene = scene;
-    this->timer = new QTimer();
+
+    this->initialiseCrocoPosition();
+    this->getSprite()->getPixmapItem()->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
     this->drawCroco();
 
+    this->current_position = new QPoint(this->getSprite()->getPixmapItem()->sceneBoundingRect().x(), this->getSprite()->getPixmapItem()->sceneBoundingRect().y());
+
+    this->timer = new QTimer();
     connect(this->timer, SIGNAL(timeout()), this, SLOT(run()));
     this->timer->start(15);
 }
@@ -22,6 +26,18 @@ Croco::~Croco()
 }
 
 /** ---------- METHODS ---------- **/
+
+void Croco::initialiseCrocoPosition()
+{
+    int posX, posY;
+    do
+    {
+        posX = rand() % GAME_SIZE;
+        posY = rand() % GAME_SIZE;
+        this->crocoSprite = new Sprite(":/resources/resources/ennemiUp.png", posX, posY);
+    }
+    while (this->isCollidingWith(this->scene->getGame()->getMap()));
+}
 
 void Croco::drawCroco()
 {
@@ -75,28 +91,28 @@ void Croco::moveTowardsPlayer()
     double moveX = (dx/dist);
     double moveY = (dy/dist);
 
-    if(dist > 60)
+    this->changeRotation();
+
+    if (!this->isCollidingWithPlayer())
     {
-        this->changeRotation();
-        this->move(moveX, moveY);
+        if (!this->isCollidingWith(this->scene->getGame()->getMap()))
+            this->move(moveX, moveY);
     }
 }
 
 bool Croco::isCollidingWith(Map* map)
 {
     for (int i = 0; i < map->getBackground()->size(); ++i)
-    {
         for (int j =0; j < map->getBackground()->at(i)->size(); ++j)
-        {
-            if (map->getBackground()->at(i)->at(j)->getId() == "Mur" ||
-                map->getBackground()->at(i)->at(j)->getId() == "Porte")
-            {
+            if (map->getBackground()->at(i)->at(j)->getId() == "Mur" || map->getBackground()->at(i)->at(j)->getId() == "Porte")
                 if (this->getSprite()->getPixmapItem()->collidesWithItem(map->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
                     return true;
-            }
-        }
-    }
     return false;
+}
+
+bool Croco::isCollidingWithPlayer()
+{
+    return this->getSprite()->getPixmapItem()->collidesWithItem(this->player->getSprite()->getPixmapItem());
 }
 
 void Croco::updatePos()
@@ -109,7 +125,30 @@ void Croco::move(double x, double y)
 {
     this->updatePos();
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+x, this->getYpos()+y);
+    if (this->isCollidingWith(this->scene->getGame()->getMap()))
+    {
+        this->getSprite()->getPixmapItem()->setOffset(this->current_position->x(), this->current_position->y());
+        this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+1, this->getYpos());
+        if (this->isCollidingWith(this->scene->getGame()->getMap()))
+        {
+            this->getSprite()->getPixmapItem()->setOffset(this->current_position->x(), this->current_position->y());
+            this->getSprite()->getPixmapItem()->setOffset(this->getXpos()-1, this->getYpos());
+            if (this->isCollidingWith(this->scene->getGame()->getMap()))
+            {
+                this->getSprite()->getPixmapItem()->setOffset(this->current_position->x(), this->current_position->y());
+                this->getSprite()->getPixmapItem()->setOffset(this->getXpos(), this->getYpos()+1);
+                if (this->isCollidingWith(this->scene->getGame()->getMap()))
+                {
+                    this->getSprite()->getPixmapItem()->setOffset(this->current_position->x(), this->current_position->y());
+                    this->getSprite()->getPixmapItem()->setOffset(this->getXpos(), this->getYpos()-1);
+                    if (this->isCollidingWith(this->scene->getGame()->getMap()))
+                        this->getSprite()->getPixmapItem()->setOffset(this->current_position->x(), this->current_position->y());
+                }
+            }
+        }
+    }
 }
+
 /** ---------- SLOTS ---------- **/
 
 void Croco::run()

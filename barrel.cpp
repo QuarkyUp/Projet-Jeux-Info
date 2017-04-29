@@ -1,15 +1,16 @@
 #include "barrel.h"
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
-Barrel::Barrel(qreal coordX, qreal coordY, QPointF *mousePos, Scene *scene, Player *player)
+Barrel::Barrel(QPointF *mousePos, Scene *scene)
 {
-    this->sprite = new Sprite(":/resources/resources/barrel.png", coordX, coordY);
     this->scene = scene;
-    this->player = player;
+    this->player = this->scene->getGame()->getPlayer();
     this->mousePos = mousePos;
-    this->timer = new QTimer();
+
+    this->sprite = new Sprite(":/resources/resources/barrel.png", this->player->getXpos(), this->player->getYpos());
     this->drawBarrel();
 
+    this->timer = new QTimer();
     connect(this->timer, SIGNAL(timeout()), this, SLOT(run()));
     this->timer->start(15);
 }
