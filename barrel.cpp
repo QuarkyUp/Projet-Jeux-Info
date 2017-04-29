@@ -1,9 +1,9 @@
 #include "barrel.h"
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
-Barrel::Barrel(QString imagePath, qreal coordX, qreal coordY, QPointF mousePos, Scene *scene, Player *player)
+Barrel::Barrel(qreal coordX, qreal coordY, QPointF *mousePos, Scene *scene, Player *player)
 {
-    this->sprite = new Sprite(imagePath, coordX, coordY);
+    this->sprite = new Sprite(":/resources/resources/barrel.png", coordX, coordY);
     this->scene = scene;
     this->player = player;
     this->mousePos = mousePos;
@@ -16,7 +16,7 @@ Barrel::Barrel(QString imagePath, qreal coordX, qreal coordY, QPointF mousePos, 
 
 Barrel::~Barrel()
 {
-    removeBarrel();
+    this->removeBarrel();
     disconnect(this->timer);
 }
 
@@ -34,8 +34,8 @@ void Barrel::removeBarrel()
 
 void Barrel::changeRotation()
 {
-    qreal playerRelativeX = this->getXpos() - this->mousePos.x();
-    qreal playerRelativeY = this->getYpos() - this->mousePos.y();
+    qreal playerRelativeX = this->getXpos() - this->mousePos->x();
+    qreal playerRelativeY = this->getYpos() - this->mousePos->y();
     qreal angle = M_PI;
 
     if((playerRelativeX > 0) && (playerRelativeY >= 0))
@@ -77,8 +77,8 @@ void Barrel::changeRotation()
 
 void Barrel::moveTowardsMouse()
 {
-    double dx = this->getXpos() - this->mousePos.x();
-    double dy = this->getYpos() - this->mousePos.y();
+    double dx = this->getXpos() - this->mousePos->x();
+    double dy = this->getYpos() - this->mousePos->y();
 
     double dist = sqrt(dx*dx + dy*dy);
     double moveX = (dx/dist)*(-4);

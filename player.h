@@ -1,17 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <QGraphicsScene>
-#include <QGraphicsView>
-
-#include "sprite.h"
 #include "map.h"
 
 class Player
 {
 public:
     /** CONSTRUCTOR **/
-    static Player* newPlayer(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene);
+    static Player* newPlayer();
 
     /** METHODS **/
 
@@ -23,16 +19,16 @@ public:
       void moveLeft(Map*);
       void moveRight(Map*);
       void updatePos();
+//      void drawPlayer(Scene* scene);
+
 
       bool isCollidingWith(Map*);
 
     /** GETTERS **/
     Sprite* getSprite();
-    QGraphicsScene* scene;
     QPoint* getCurrentPos();
 private:
-    Player(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene);
-    void drawPlayer(QGraphicsScene* scene);
+    Player();
 
 
     static Player* playerInstance;

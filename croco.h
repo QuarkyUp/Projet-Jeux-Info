@@ -1,10 +1,9 @@
 #ifndef CROCO_H
 #define CROCO_H
 
+#include <QObject>
 #include <QTimer>
-#include <cmath>
 #include "scene.h"
-#include "sprite.h"
 #include "player.h"
 
 
@@ -14,7 +13,7 @@ class Croco : public QObject
 
 public:
     /** CONSTRUCTOR / DESTRUCTOR **/
-    Croco(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene, Player* player);
+    Croco(qreal coordX, qreal coordY, Scene* scene, Player* player);
     ~Croco();
 
     /** METHODS **/
@@ -39,7 +38,7 @@ public slots:
 private:
     Sprite* crocoSprite;
     Player* player;
-    QGraphicsScene* scene;
+    Scene* scene;
     QTimer* timer;
     QPoint* current_position;
 };

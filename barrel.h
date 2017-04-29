@@ -1,12 +1,10 @@
 #ifndef BARREL_H
 #define BARREL_H
 
-#include "sprite.h"
-#include "player.h"
+#include <QObject>
 #include "scene.h"
-#include <QPointF>
-#include <cmath>
-#include <QTimer>
+#include "player.h"
+#include "game.h"
 
 class Barrel : public QObject
 {
@@ -14,7 +12,7 @@ class Barrel : public QObject
 
 public:
     /** CONSTRUCTOR / DESTRUCTOR **/
-    Barrel(QString imagePath, qreal coordX, qreal coordY, QPointF mousePos, Scene* scene, Player* player);
+    Barrel(qreal coordX, qreal coordY, QPointF* mousePos, Scene* scene, Player* player);
     ~Barrel();
 
     /** METHODS **/
@@ -37,7 +35,7 @@ private:
     Sprite* sprite;
     Scene* scene;
     Player* player;
-    QPointF mousePos;
+    QPointF* mousePos;
     QTimer* timer;
     bool rotation = true;
 

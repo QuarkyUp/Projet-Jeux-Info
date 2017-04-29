@@ -2,23 +2,17 @@
 
 Player* Player::playerInstance;
 
-Player::Player(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene)
+Player::Player()
 {
-    this->scene = scene;
-    playerSprite = new Sprite(imagePath, coordX, coordY);
-    drawPlayer(scene);
-    this->current_position = new QPoint(this->getSprite()->getPixmapItem()->sceneBoundingRect().x(), this->getSprite()->getPixmapItem()->sceneBoundingRect().y());}
-
-Player* Player::newPlayer(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene)
-{
-    if (Player::playerInstance == NULL)
-        Player::playerInstance = new Player(imagePath, coordX, coordY, scene);
-    return Player::playerInstance;
+    playerSprite = new Sprite(":/resources/resources/donkeyUp.png", 600, 200);
+    this->current_position = new QPoint(this->getSprite()->getPixmapItem()->sceneBoundingRect().x(), this->getSprite()->getPixmapItem()->sceneBoundingRect().y());
 }
 
-void Player::drawPlayer(QGraphicsScene* scene)
+Player* Player::newPlayer()
 {
-   scene->addItem(this->playerSprite->getPixmapItem());
+    if (Player::playerInstance == NULL)
+        Player::playerInstance = new Player();
+    return Player::playerInstance;
 }
 
 Sprite* Player::getSprite()

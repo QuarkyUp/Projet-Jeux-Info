@@ -1,5 +1,4 @@
 #include "map.h"
-#include <QDebug>
 
 Map* Map::instance;
 
@@ -25,33 +24,28 @@ Map* Map::newInstance()
     return Map::instance;
 }
 
-void Map::createMap()
+void Map::addMur(int i, int j)
 {
-    //this->background->resize(HEIGH);
-    srand (time(NULL));
-    for (int i = 0; i < HEIGH; ++i)
-    {
-        //this->background->at(i)->resize(WIDTH);
-        for (int j = 0; j < WIDTH; ++j)
-        {
-            int random_x;
-            random_x = rand() % 100;
-            this->background->at(i)->append(new Element("Sol", i*PIXEL_SIZE, j*PIXEL_SIZE));
-            if(i == 0 && (j == 15 || j == 14 || j == 16))
-                this->background->at(i)->replace(j,new Element("Porte", i*PIXEL_SIZE, j*PIXEL_SIZE, "Gauche"));
-            else if(i == HEIGH-2 && (j == 15 || j == 14 || j == 16))
-                this->background->at(i)->replace(j,new Element("Porte", i*PIXEL_SIZE, j*PIXEL_SIZE, "Droite"));
-            else if((i == 13 || i == 14 || i == 15) && j == 0)
-                this->background->at(i)->replace(j,new Element("Porte", i*PIXEL_SIZE, j*PIXEL_SIZE, "Haut"));
-            else if((i == 13 || i == 14 || i == 15) && j==WIDTH-2)
-                this->background->at(i)->replace(j,new Element("Porte", i*PIXEL_SIZE, j*PIXEL_SIZE, "Bas"));
-            else if (i == 0 || i == HEIGH-2 || j == 0 || j == WIDTH-2)
-                this->background->at(i)->replace(j,new Element("Mur", i*PIXEL_SIZE, j*PIXEL_SIZE));
-        }
-    }
-    generateObstacle();
-
+    this->background->at(i)->replace(j,new Element("Mur", i*PIXEL_SIZE, j*PIXEL_SIZE));
 }
+
+void Map::addPorte(int i, int j, QString direction)
+{
+    if (direction == "Gauche")
+        this->background->at(i)->replace(j,new Element("Porte", i*PIXEL_SIZE, j*PIXEL_SIZE, direction));
+    if (direction == "Droite")
+        this->background->at(i)->replace(j,new Element("Porte", i*PIXEL_SIZE, j*PIXEL_SIZE, direction));
+    if (direction == "Haut")
+        this->background->at(i)->replace(j,new Element("Porte", i*PIXEL_SIZE, j*PIXEL_SIZE, direction));
+    if (direction == "Bas")
+        this->background->at(i)->replace(j,new Element("Porte", i*PIXEL_SIZE, j*PIXEL_SIZE, direction));
+}
+
+void Map::addSol(int i, int j)
+{
+    this->background->at(i)->append(new Element("Sol", i*PIXEL_SIZE, j*PIXEL_SIZE));
+}
+
 
 void Map::generateObstacle()
 {
@@ -73,15 +67,6 @@ void Map::generateObstacle()
         }
         if(isOk)
             this->background->at(randomX)->replace(randomY,new Element("Mur", randomX*PIXEL_SIZE, randomY*PIXEL_SIZE));
-    }
-}
-
-void Map::drawMap(QGraphicsScene *scene)
-{
-
-    for(int i = 0; i < 31; i++){
-        for(int j = 0; j < 31; j++)
-            this->background->at(i)->at(j)->drawElement(scene);
     }
 }
 

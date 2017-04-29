@@ -1,23 +1,13 @@
 #include "scene.h"
-#include <QDebug>
-#include <QTransform>
-#include <cmath>
-#include "barrel.h"
 #include "game.h"
+
+#include <QDebug>
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 Scene::Scene()
 {
     this->setSceneRect(0, 0 , GAME_SIZE, GAME_SIZE);
-
-    this->mvt = new QVector<bool>();
-    for (int i = 0; i < 5; ++i)
-        this->mvt->append(false);
-
-    QTimer* timer = new QTimer();
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateKey()));
-    timer->start(30);
-
+    this->start();
 }
 Scene::~Scene()
 {
@@ -29,7 +19,7 @@ Scene::~Scene()
 void Scene::start()
 {
     this->createView();
-    this->createGame();
+    this->createMvtTimer();
 }
 
 void Scene::createView()
@@ -46,18 +36,24 @@ void Scene::createView()
     view->show();
 }
 
+
 void Scene::createGame()
 {
-    this->game = new Game();
-    this->game->generateMap(this);
+    this->game->generateMap();
+}
+
+
+void Scene::setGame(Game * game)
+{
+    this->game = game;
 }
 
 void Scene::updateOrientation()
 {
 
 
-    qreal mouseRelativeX = this->lastMousePosX - game->getPlayer()->getXpos();
-    qreal mouseRelativeY = this->lastMousePosY - game->getPlayer()->getYpos();
+    qreal mouseRelativeX = this->lastMousePosX - this->game->getPlayer()->getXpos();
+    qreal mouseRelativeY = this->lastMousePosY - this->game->getPlayer()->getYpos();
     qreal angle = M_PI;
 
     if((mouseRelativeX > 0) && (mouseRelativeY >= 0))
@@ -97,6 +93,17 @@ void Scene::updateOrientation()
 
     game->getPlayer()->getSprite()->getPixmapItem()->setPixmap(rotate);
 
+}
+
+void Scene::createMvtTimer()
+{
+    this->mvt = new QVector<bool>();
+    for (int i = 0; i < 5; ++i)
+        this->mvt->append(false);
+
+    QTimer* timer = new QTimer();
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateKey()));
+    timer->start(30);
 }
 
 void Scene::keyPressEvent(QKeyEvent* event)
@@ -169,10 +176,7 @@ void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event )
 
 void Scene::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
 {
-    qreal playerX = game->getPlayer()->getXpos();
-    qreal playerY = game->getPlayer()->getYpos();
-
-    Barrel* barrel= new Barrel(":/resources/resources/barrel.png", playerX, playerY, event->scenePos(), this, this->game->getPlayer());
+    this->game->createBarrel(new QPointF(event->scenePos()));
 }
 
 /** ---------- SLOTS ---------- **/

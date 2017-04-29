@@ -2,9 +2,9 @@
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 
-Croco::Croco(QString imagePath, qreal coordX, qreal coordY, QGraphicsScene* scene, Player* player)
+Croco::Croco(qreal coordX, qreal coordY, Scene* scene, Player* player)
 {
-    this->crocoSprite = new Sprite(imagePath, coordX, coordY);
+    this->crocoSprite = new Sprite(":/resources/resources/ennemiUp.png", coordX, coordY);
     this->current_position = new QPoint(this->getSprite()->getPixmapItem()->sceneBoundingRect().x(), this->getSprite()->getPixmapItem()->sceneBoundingRect().y());
     this->player = player;
     this->scene = scene;

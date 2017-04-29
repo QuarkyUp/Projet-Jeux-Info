@@ -1,8 +1,6 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include <QString>
-#include <QPixmap>
 #include <QGraphicsPixmapItem>
 
 class Sprite

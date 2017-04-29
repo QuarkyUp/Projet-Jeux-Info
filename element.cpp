@@ -1,5 +1,4 @@
 #include "element.h"
-#include <QGraphicsScene>
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 
@@ -35,10 +34,10 @@ Element::Element(QString id, qreal x, qreal y, QString orientation)
 
 /** ---------- METHODS ---------- **/
 
-void Element::drawElement(QGraphicsScene* scene)
-{
-    scene->addItem(this->sprite->getPixmapItem());
-}
+//void Element::drawElement(Scene* scene)
+//{
+//    scene->addItem(this->sprite->getPixmapItem());
+//}
 
 /** ---------- GETTERS ---------- **/
 

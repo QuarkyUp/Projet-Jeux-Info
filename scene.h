@@ -1,19 +1,27 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#define GAME_SIZE 31*31
+
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QKeyEvent>
-#include <QMouseEvent>
-#include <QGraphicsSceneMouseEvent>
+#include <cmath>
 #include <QTimer>
-#include "game.h"
+#include <QGraphicsSceneMouseEvent>
 
-#define GAME_SIZE 31*31
+class Game;
 
 class Scene : public QGraphicsScene
 {
     Q_OBJECT
+
+private:
+    QGraphicsView* view;
+    Game* game;
+    qreal lastMousePosX;
+    qreal lastMousePosY;
+    QVector<bool>* mvt;
 
 public:
     /** CONSTRUCTOR **/
@@ -21,15 +29,17 @@ public:
     ~Scene();
 
     /** METHODS **/
+    void setGame(Game*);
     void start();
     void createView();
     void createGame();
     void updateOrientation();
     bool collisonMur();
+    void createMvtTimer();
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
-    void mouseMoveEvent  (QGraphicsSceneMouseEvent * event );
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent * event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event );
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 
     /** GETTER **/
     QGraphicsView* getView();
@@ -38,12 +48,7 @@ public:
 public slots:
     void updateKey();
 
-private:
-    QGraphicsView* view;
-    Game* game;
-    qreal lastMousePosX;
-    qreal lastMousePosY;
-    QVector<bool>* mvt;
+
 };
 
 #endif // SCENE_H
