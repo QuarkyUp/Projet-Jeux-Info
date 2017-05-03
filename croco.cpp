@@ -1,6 +1,5 @@
 #include "croco.h"
 
-#include <QDebug>
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 
 Croco::Croco(Scene* scene)

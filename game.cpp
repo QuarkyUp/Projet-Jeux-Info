@@ -1,6 +1,5 @@
 #include "game.h"
 
-#include "qdebug.h"
 Game::Game(Scene* scene)
 {
     this->scene = scene;
@@ -19,9 +18,7 @@ void Game::generateMap()
     this->drawPlayer();
 
     for (int i = 0; i < 5; ++i)
-    {
         new Croco(this->scene);
-    }
 }
 
 Map* Game::getMap()

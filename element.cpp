@@ -32,13 +32,6 @@ Element::Element(QString id, qreal x, qreal y, QString orientation)
 
 }
 
-/** ---------- METHODS ---------- **/
-
-//void Element::drawElement(Scene* scene)
-//{
-//    scene->addItem(this->sprite->getPixmapItem());
-//}
-
 /** ---------- GETTERS ---------- **/
 
 QString Element::getId()

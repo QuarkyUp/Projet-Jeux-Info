@@ -49,7 +49,6 @@ void Map::addSol(int i, int j)
 
 void Map::generateObstacle()
 {
-    srand (time(NULL));
     for(int i = 0; i < 30*30; i++)
     {
         int randomX = rand()%(25) + 3;

@@ -2,9 +2,11 @@
 #define BARREL_H
 
 #include <QObject>
+#include <QVector>
 #include "scene.h"
 #include "player.h"
 #include "game.h"
+
 
 class Barrel : public QObject
 {
