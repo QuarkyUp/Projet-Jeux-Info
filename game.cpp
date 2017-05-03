@@ -17,7 +17,7 @@ void Game::generateMap()
     this->myPlayer = Player::newPlayer();
     this->drawPlayer();
 
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < 1; ++i)
         new Croco(this->scene);
 }
 
@@ -74,10 +74,10 @@ void Game::drawMap()
 void Game::drawPlayer()
 {
     this->scene->addItem(this->myPlayer->getSprite()->getPixmapItem());
+    this->scene->addItem(this->myPlayer->getLifebar());
 }
 
 void Game::createBarrel(QPointF *mousePos)
 {
     new Barrel(mousePos, this->scene);
 }
-

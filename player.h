@@ -2,6 +2,8 @@
 #define PLAYER_H
 
 #include "map.h"
+#include <QBrush>
+#include <QDebug>
 
 class Player
 {
@@ -19,6 +21,7 @@ public:
       void moveLeft(Map*);
       void moveRight(Map*);
       void updatePos();
+      void createLifebar();
 //      void drawPlayer(Scene* scene);
 
 
@@ -27,6 +30,8 @@ public:
     /** GETTERS **/
     Sprite* getSprite();
     QPoint* getCurrentPos();
+    QGraphicsRectItem* getLifebar();
+
 private:
     Player();
 
@@ -34,6 +39,7 @@ private:
     static Player* playerInstance;
     Sprite* playerSprite;
     QPoint* current_position;
+    QGraphicsRectItem* lifebar;
 };
 
 #endif // PLAYER_H
