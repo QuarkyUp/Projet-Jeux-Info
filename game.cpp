@@ -75,6 +75,7 @@ void Game::drawMap()
 void Game::drawPlayer()
 {
     this->scene->addItem(this->myPlayer->getSprite()->getPixmapItem());
+    this->scene->addItem(this->myPlayer->getLifebar());
 }
 
 void Game::createBarrel(QPointF *mousePos)
