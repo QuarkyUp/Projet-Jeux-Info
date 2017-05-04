@@ -3,11 +3,14 @@
 Map* Map::instance;
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
-Map::Map()
+Map::Map(Scene* scene)
 {
+    this->scene = scene;
     this->background = new QVector<QVector<Element*>*>();
     for (int i = 0; i < HEIGH; ++i)
         this->background->append(new QVector<Element*>());
+    this->crocoVect = new QVector<Croco*>();
+
 }
 
 Map::~Map()
@@ -20,7 +23,7 @@ Map::~Map()
 Map* Map::newInstance()
 {
     if (Map::instance == NULL)
-        Map::instance = new Map();
+        Map::instance = new Map(scene);
     return Map::instance;
 }
 
@@ -69,9 +72,28 @@ void Map::generateObstacle()
     }
 }
 
+void Map::generateEnnemy()
+{
+    for (int i = 0; i < 5; ++i)
+        this->crocoVect->append(new Croco*(this->scene));
+}
+
+/** ---------- SLOT ---------- **/
+
+void Map::emitNoCrocoLeft()
+{
+    if (this->crocoVect->isEmpty())
+        emit noCrocoLeft();
+}
+
 /** ---------- GETTERS ---------- **/
 
 QVector<QVector<Element*>*>* Map::getBackground()
 {
     return this->background;
+}
+
+QVector<Croco*>* Map::getCrocoVect()
+{
+    return this->crocoVect;
 }

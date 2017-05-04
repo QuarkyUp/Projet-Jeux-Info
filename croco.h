@@ -4,8 +4,9 @@
 #include <QObject>
 #include <QTimer>
 #include "scene.h"
-#include "player.h"
-#include "game.h"
+#include "sprite.h"
+
+
 
 
 class Croco : public QObject
@@ -26,7 +27,7 @@ public:
     void updatePos();
     void move(double, double);
 
-    bool isCollidingWith(Map*);
+    bool isCollidingWithMap();
     bool isCollidingWithPlayer();
 
     /** GETTERS **/
@@ -40,7 +41,6 @@ public slots:
 
 private:
     Sprite* crocoSprite;
-    Player* player;
     Scene* scene;
     QTimer* timer;
     QPoint* current_position;

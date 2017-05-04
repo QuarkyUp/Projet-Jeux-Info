@@ -89,7 +89,7 @@ void Barrel::moveTowardsMouse()
         changeRotation();
         this->rotation = false;
     }
-    if(dist > 10 && !this->isCollidingWith(this->scene->getGame()->getMap()))
+    if(dist > 10 && !this->isCollidingWithMap() /**&& !this->isCollidingWithCroco() **/)
     {
         changeRotation();
         this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+moveX, this->getYpos()+moveY);
@@ -100,16 +100,16 @@ void Barrel::moveTowardsMouse()
     }
 }
 
-bool Barrel::isCollidingWith(Map* map)
+bool Barrel::isCollidingWithMap()
 {
-    for (int i = 0; i < map->getBackground()->size(); ++i)
+    for (int i = 0; i < this->scene->getGame()->getMap()->getBackground()->size(); ++i)
     {
-        for (int j =0; j < map->getBackground()->at(i)->size(); ++j)
+        for (int j =0; j < this->scene->getGame()->getMap()->getBackground()->at(i)->size(); ++j)
         {
-            if (map->getBackground()->at(i)->at(j)->getId() == "Mur" ||
-                map->getBackground()->at(i)->at(j)->getId() == "Porte")
+            if (this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getId() == "Mur" ||
+                this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
             {
-                if (this->getSprite()->getPixmapItem()->collidesWithItem(map->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
+                if (this->getSprite()->getPixmapItem()->collidesWithItem(this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
                     return true;
             }
         }

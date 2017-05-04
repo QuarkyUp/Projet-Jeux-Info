@@ -4,21 +4,27 @@ Game::Game(Scene* scene)
 {
     this->scene = scene;
     this->scene->setGame(this);
-    this->map = new Map();
     this->generateMap();
+    this->generatePlayer();
+}
+
+Game::~Game()
+{
+
 }
 
 
 void Game::generateMap()
 {
+    this->map = new Map(this->scene);
     this->createMap();
     this->drawMap();
+}
 
-    this->myPlayer = Player::newPlayer();
+void Game::generatePlayer()
+{
+    this->myPlayer = Player::newPlayer(this->scene);
     this->drawPlayer();
-
-    for (int i = 0; i < 5; ++i)
-        new Croco(this->scene);
 }
 
 Map* Game::getMap()
@@ -31,15 +37,10 @@ Player* Game::getPlayer()
     return this->myPlayer;
 }
 
-//bool Game::collisionPlayerEnnemy()
-//{
-//    for (int i = 0; i < this->getMap()->getBackground()->size(); ++i)
-//        for (int j =0; j < this->getMap()->getBackground()->at(i)->size(); ++j)
-//            if (this->getMap()->getBackground()->at(i)->at(j)->getId() == "Mur" || this->getMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
-//                if (this->getPlayer()->getSprite()->getPixmapItem()->collidesWithItem(this->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
-//                    return true;
-//    return false;
-//}
+void Game::holdTheDoor()
+{
+
+}
 
 void Game::createMap()
 {
@@ -80,4 +81,5 @@ void Game::createBarrel(QPointF *mousePos)
 {
     new Barrel(mousePos, this->scene);
 }
+
 

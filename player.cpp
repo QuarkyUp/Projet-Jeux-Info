@@ -1,17 +1,19 @@
 #include "player.h"
+#include "game.h"
 
 Player* Player::playerInstance;
 
-Player::Player()
+Player::Player(Scene* scene)
 {
+    this->scene = scene;
     playerSprite = new Sprite(":/resources/resources/donkeyUp.png", 600, 200);
     this->current_position = new QPoint(this->getSprite()->getPixmapItem()->sceneBoundingRect().x(), this->getSprite()->getPixmapItem()->sceneBoundingRect().y());
 }
 
-Player* Player::newPlayer()
+Player* Player::newPlayer(Scene * scene)
 {
     if (Player::playerInstance == NULL)
-        Player::playerInstance = new Player();
+        Player::playerInstance = new Player(scene);
     return Player::playerInstance;
 }
 
@@ -31,35 +33,35 @@ qreal Player::getYpos()
     return this->getSprite()->getPixmapItem()->sceneBoundingRect().y();
 }
 
-void Player::moveUp(Map* map)
+void Player::moveUp()
 {
     this->updatePos();
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos(), this->getYpos()-5);
-    if (this->isCollidingWith(map))
+    if (this->isCollidingWithMap())
         this->getSprite()->getPixmapItem()->setOffset(this->getCurrentPos()->x(), this->getCurrentPos()->y());
 }
 
-void Player::moveDown(Map* map)
+void Player::moveDown()
 {
     this->updatePos();
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos(), this->getYpos()+5);
-    if (this->isCollidingWith(map))
+    if (this->isCollidingWithMap())
         this->getSprite()->getPixmapItem()->setOffset(this->getCurrentPos()->x(), this->getCurrentPos()->y());
 }
 
-void Player::moveLeft(Map* map)
+void Player::moveLeft()
 {
     this->updatePos();
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos()-5, this->getYpos());
-    if (this->isCollidingWith(map))
+    if (this->isCollidingWithMap())
         this->getSprite()->getPixmapItem()->setOffset(this->getCurrentPos()->x(), this->getCurrentPos()->y());
 }
 
-void Player::moveRight(Map* map)
+void Player::moveRight()
 {
     this->updatePos();
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+5, this->getYpos());
-    if (this->isCollidingWith(map))
+    if (this->isCollidingWithMap())
         this->getSprite()->getPixmapItem()->setOffset(this->getCurrentPos()->x(), this->getCurrentPos()->y());
 }
 
@@ -68,16 +70,16 @@ QPoint* Player::getCurrentPos()
     return this->current_position;
 }
 
-bool Player::isCollidingWith(Map* map)
+bool Player::isCollidingWithMap()
 {
-    for (int i = 0; i < map->getBackground()->size(); ++i)
+    for (int i = 0; i < this->scene->getGame()->getMap()->getBackground()->size(); ++i)
     {
-        for (int j =0; j < map->getBackground()->at(i)->size(); ++j)
+        for (int j =0; j < this->scene->getGame()->getMap()->getBackground()->at(i)->size(); ++j)
         {
-            if (map->getBackground()->at(i)->at(j)->getId() == "Mur" ||
-                map->getBackground()->at(i)->at(j)->getId() == "Porte")
+            if (this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getId() == "Mur" ||
+                this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
             {
-                if (this->getSprite()->getPixmapItem()->collidesWithItem(map->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
+                if (this->getSprite()->getPixmapItem()->collidesWithItem(this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
                     return true;
             }
         }

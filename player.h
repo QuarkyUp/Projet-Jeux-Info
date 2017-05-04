@@ -2,35 +2,35 @@
 #define PLAYER_H
 
 #include "map.h"
+#include "scene.h"
 
 class Player
 {
 public:
     /** CONSTRUCTOR **/
-    static Player* newPlayer();
+    static Player* newPlayer(Scene*);
 
     /** METHODS **/
 
       qreal getXpos();
       qreal getYpos();
 
-      void moveUp(Map*);
-      void moveDown(Map*);
-      void moveLeft(Map*);
-      void moveRight(Map*);
+      void moveUp();
+      void moveDown();
+      void moveLeft();
+      void moveRight();
       void updatePos();
-//      void drawPlayer(Scene* scene);
 
 
-      bool isCollidingWith(Map*);
+      bool isCollidingWithMap();
 
     /** GETTERS **/
     Sprite* getSprite();
     QPoint* getCurrentPos();
 private:
-    Player();
+    Player(Scene* scene);
 
-
+    Scene* scene;
     static Player* playerInstance;
     Sprite* playerSprite;
     QPoint* current_position;

@@ -1,10 +1,11 @@
 #include "croco.h"
+#include "game.h"
+#include "player.h"
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 
 Croco::Croco(Scene* scene)
 {
-    this->player = scene->getGame()->getPlayer();
     this->scene = scene;
 
     this->initialiseCrocoPosition();
@@ -20,7 +21,7 @@ Croco::Croco(Scene* scene)
 
 Croco::~Croco()
 {
-    removeCroco();
+    this->removeCroco();
     disconnect(this->timer);
 }
 
@@ -35,7 +36,7 @@ void Croco::initialiseCrocoPosition()
         posY = rand() % GAME_SIZE;
         this->crocoSprite = new Sprite(":/resources/resources/ennemiUp.png", posX, posY);
     }
-    while (this->isCollidingWith(this->scene->getGame()->getMap()));
+    while (this->isCollidingWithMap());
 }
 
 void Croco::drawCroco()
@@ -50,8 +51,8 @@ void Croco::removeCroco()
 
 void Croco::changeRotation()
 {
-    qreal playerRelativeX = this->getXpos() - this->player->getXpos();
-    qreal playerRelativeY = this->getYpos() - this->player->getYpos();
+    qreal playerRelativeX = this->getXpos() - this->scene->getGame()->getPlayer()->getXpos();
+    qreal playerRelativeY = this->getYpos() - this->scene->getGame()->getPlayer()->getYpos();
     qreal angle = M_PI;
 
     if((playerRelativeX > 0) && (playerRelativeY >= 0))
@@ -83,8 +84,8 @@ void Croco::changeRotation()
 
 void Croco::moveTowardsPlayer()
 {
-    double dx = this->player->getXpos() - this->getXpos();
-    double dy = this->player->getYpos() - this->getYpos();
+    double dx = this->scene->getGame()->getPlayer()->getXpos() - this->getXpos();
+    double dy = this->scene->getGame()->getPlayer()->getYpos() - this->getYpos();
 
     double dist = sqrt(dx*dx + dy*dy);
     double moveX = (dx/dist);
@@ -94,24 +95,24 @@ void Croco::moveTowardsPlayer()
 
     if (!this->isCollidingWithPlayer())
     {
-        if (!this->isCollidingWith(this->scene->getGame()->getMap()))
+        if (!this->isCollidingWithMap())
             this->move(moveX, moveY);
     }
 }
 
-bool Croco::isCollidingWith(Map* map)
+bool Croco::isCollidingWithMap()
 {
-    for (int i = 0; i < map->getBackground()->size(); ++i)
-        for (int j =0; j < map->getBackground()->at(i)->size(); ++j)
-            if (map->getBackground()->at(i)->at(j)->getId() == "Mur" || map->getBackground()->at(i)->at(j)->getId() == "Porte")
-                if (this->getSprite()->getPixmapItem()->collidesWithItem(map->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
+    for (int i = 0; i < this->scene->getGame()->getMap()->getBackground()->size(); ++i)
+        for (int j =0; j < this->scene->getGame()->getMap()->getBackground()->at(i)->size(); ++j)
+            if (this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getId() == "Mur" || this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
+                if (this->getSprite()->getPixmapItem()->collidesWithItem(this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
                     return true;
     return false;
 }
 
 bool Croco::isCollidingWithPlayer()
 {
-    return this->getSprite()->getPixmapItem()->collidesWithItem(this->player->getSprite()->getPixmapItem());
+    return this->getSprite()->getPixmapItem()->collidesWithItem(this->scene->getGame()->getPlayer()->getSprite()->getPixmapItem());
 }
 
 void Croco::updatePos()
@@ -124,23 +125,23 @@ void Croco::move(double x, double y)
 {
     this->updatePos();
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+x, this->getYpos()+y);
-    if (this->isCollidingWith(this->scene->getGame()->getMap()))
+    if (this->isCollidingWithMap())
     {
         this->getSprite()->getPixmapItem()->setOffset(this->current_position->x(), this->current_position->y());
         this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+1, this->getYpos());
-        if (this->isCollidingWith(this->scene->getGame()->getMap()))
+        if (this->isCollidingWithMap())
         {
             this->getSprite()->getPixmapItem()->setOffset(this->current_position->x(), this->current_position->y());
             this->getSprite()->getPixmapItem()->setOffset(this->getXpos()-1, this->getYpos());
-            if (this->isCollidingWith(this->scene->getGame()->getMap()))
+            if (this->isCollidingWithMap())
             {
                 this->getSprite()->getPixmapItem()->setOffset(this->current_position->x(), this->current_position->y());
                 this->getSprite()->getPixmapItem()->setOffset(this->getXpos(), this->getYpos()+1);
-                if (this->isCollidingWith(this->scene->getGame()->getMap()))
+                if (this->isCollidingWithMap())
                 {
                     this->getSprite()->getPixmapItem()->setOffset(this->current_position->x(), this->current_position->y());
                     this->getSprite()->getPixmapItem()->setOffset(this->getXpos(), this->getYpos()-1);
-                    if (this->isCollidingWith(this->scene->getGame()->getMap()))
+                    if (this->isCollidingWithMap())
                         this->getSprite()->getPixmapItem()->setOffset(this->current_position->x(), this->current_position->y());
                 }
             }

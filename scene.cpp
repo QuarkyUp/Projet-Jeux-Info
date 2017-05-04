@@ -50,8 +50,6 @@ void Scene::setGame(Game * game)
 
 void Scene::updateOrientation()
 {
-
-
     qreal mouseRelativeX = this->lastMousePosX - this->game->getPlayer()->getXpos();
     qreal mouseRelativeY = this->lastMousePosY - this->game->getPlayer()->getYpos();
     qreal angle = M_PI;
@@ -185,23 +183,23 @@ void Scene::updateKey()
 {
         if (this->mvt->at(0))
         {
-            this->game->getPlayer()->moveUp(this->getGame()->getMap());
+            this->game->getPlayer()->moveUp();
             this->updateOrientation();
         }
         if (this->mvt->at(1))
         {
-            this->game->getPlayer()->moveDown(this->getGame()->getMap());
+            this->game->getPlayer()->moveDown();
             this->updateOrientation();
         }
         if (this->mvt->at(2))
         {
-            this->game->getPlayer()->moveLeft(this->getGame()->getMap());
+            this->game->getPlayer()->moveLeft();
             this->updateOrientation();
         }
 
         if (this->mvt->at(3))
         {
-            this->game->getPlayer()->moveRight(this->getGame()->getMap());
+            this->game->getPlayer()->moveRight();
             this->updateOrientation();
         }
 }

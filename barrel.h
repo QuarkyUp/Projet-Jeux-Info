@@ -2,7 +2,6 @@
 #define BARREL_H
 
 #include <QObject>
-#include <QVector>
 #include "scene.h"
 #include "player.h"
 #include "game.h"
@@ -23,7 +22,8 @@ public:
     void changeRotation();
     void moveTowardsMouse();
 
-    bool isCollidingWith(Map*);
+    bool isCollidingWithMap();
+    bool isCollidingWithCroco();
 
     /** GETTERS **/
     qreal getXpos();
