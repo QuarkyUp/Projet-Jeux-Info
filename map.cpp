@@ -1,6 +1,5 @@
 #include "map.h"
 
-Map* Map::instance;
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 Map::Map(Scene* scene)
@@ -19,13 +18,6 @@ Map::~Map()
 }
 
 /** ---------- METHODS ---------- **/
-
-Map* Map::newInstance()
-{
-    if (Map::instance == NULL)
-        Map::instance = new Map(scene);
-    return Map::instance;
-}
 
 void Map::addMur(int i, int j)
 {
@@ -75,7 +67,7 @@ void Map::generateObstacle()
 void Map::generateEnnemy()
 {
     for (int i = 0; i < 5; ++i)
-        this->crocoVect->append(new Croco*(this->scene));
+        this->crocoVect->append(new Croco(this->scene));
 }
 
 /** ---------- SLOT ---------- **/

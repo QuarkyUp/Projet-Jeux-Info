@@ -18,7 +18,6 @@ public:
     ~Map();
 
     /** METHODS **/
-    static Map* newInstance();
     void addPorte(int, int, QString);
     void addMur(int, int);
     void addSol(int, int);
@@ -37,7 +36,6 @@ private:
     Scene* scene;
     QVector<QVector<Element*>*>* background;
     QVector<Croco*>* crocoVect;
-    static Map* instance;
     void emitNoCrocoLeft();
 };
 

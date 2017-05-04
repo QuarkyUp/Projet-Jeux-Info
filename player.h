@@ -3,6 +3,7 @@
 
 #include "map.h"
 #include "scene.h"
+#include <QBrush>
 
 class Player
 {
@@ -20,6 +21,7 @@ public:
       void moveLeft();
       void moveRight();
       void updatePos();
+      void createLifebar();
 
 
       bool isCollidingWithMap();
@@ -27,6 +29,8 @@ public:
     /** GETTERS **/
     Sprite* getSprite();
     QPoint* getCurrentPos();
+    QGraphicsRectItem* getLifebar();
+
 private:
     Player(Scene* scene);
 
@@ -34,6 +38,7 @@ private:
     static Player* playerInstance;
     Sprite* playerSprite;
     QPoint* current_position;
+    QGraphicsRectItem* lifebar;
 };
 
 #endif // PLAYER_H
