@@ -17,25 +17,13 @@ public:
     ~Game();
 
     /** METHODS **/
+    void start();
     void generateMap();
     void generatePlayer();
-    void sendKeyboardEvent(QString);
-    bool collisionPlayerEnnemy();
-
-    void createMap();
-    void drawMap();
-    void drawPlayer();
-    void drawEnnemy();
-    void createBarrel(QPointF*);
-    void removeCroco(int);
 
     /** GETTER **/
     Map* getMap();
     Player* getPlayer();
-
-    /** SLOTS **/
-public slots:
-    void holdTheDoor();
 
 private:
     Map* map;

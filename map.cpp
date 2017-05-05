@@ -1,23 +1,47 @@
 #include "map.h"
-
+#include <QDebug>
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
 Map::Map(Scene* scene)
 {
     this->scene = scene;
-    this->background = new QVector<QVector<Element*>*>();
-    for (int i = 0; i < HEIGH; ++i)
-        this->background->append(new QVector<Element*>());
-    this->crocoVect = new QVector<Croco*>();
-
 }
 
 Map::~Map()
 {
+    disconnect(this);
+    if (this->timer)
+        disconnect(this->timer);
     delete(this->background);
+    delete(this->crocoVect);
 }
 
+
 /** ---------- METHODS ---------- **/
+
+void Map::create()
+{
+    this->background = new QVector<QVector<Element*>*>();
+    for (int i = 0; i < HEIGH; ++i)
+        this->background->append(new QVector<Element*>());
+
+    this->generateMap();
+    this->generateObstacle();
+    this->drawMap();
+    this->generateEnnemy();
+
+    this->timer = new QTimer();
+    connect(this->timer, SIGNAL(timeout()), this, SLOT(run()));
+    connect(this, SIGNAL(noCrocoLeft()), this, SLOT(doNotHoldTheDoor()));
+    this->timer->start(15);
+}
+
+void Map::drawMap()
+{
+    for(int i = 0; i < this->getBackground()->size(); i++)
+        for(int j = 0; j < this->getBackground()->at(i)->size(); j++)
+            this->scene->addItem(this->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem());
+}
 
 void Map::addMur(int i, int j)
 {
@@ -41,9 +65,29 @@ void Map::addSol(int i, int j)
     this->background->at(i)->append(new Element("Sol", i*PIXEL_SIZE, j*PIXEL_SIZE));
 }
 
+void Map::generateMap()
+{
+    for (int i = 0; i < HEIGH; ++i)
+        for (int j = 0; j < WIDTH; ++j)
+        {
+            this->addSol(i, j);
+            if(i == 0 && (j == 15 || j == 14 || j == 16))
+                this->addPorte(i, j, "Gauche");
+            else if(i == HEIGH-2 && (j == 15 || j == 14 || j == 16))
+                this->addPorte(i, j, "Droite");
+            else if((i == 13 || i == 14 || i == 15) && j == 0)
+                this->addPorte(i, j, "Haut");
+            else if((i == 13 || i == 14 || i == 15) && j==WIDTH-2)
+                this->addPorte(i, j, "Bas");
+            else if (i == 0 || i == HEIGH-2 || j == 0 || j == WIDTH-2)
+                this->addMur(i, j);
+        }
+}
+
 
 void Map::generateObstacle()
 {
+    srand (time(NULL));
     for(int i = 0; i < 30*30; i++)
     {
         int randomX = rand()%(25) + 3;
@@ -66,11 +110,26 @@ void Map::generateObstacle()
 
 void Map::generateEnnemy()
 {
-    for (int i = 0; i < 5; ++i)
+    srand (time(NULL));
+    this->crocoVect = new QVector<Croco*>();
+    for (int i = 0; i < rand()%10 + 1; ++i)
         this->crocoVect->append(new Croco(this->scene));
 }
 
 /** ---------- SLOT ---------- **/
+void Map::doNotHoldTheDoor()
+{
+    disconnect(this->timer);
+    delete(this->timer);
+    qDebug() << "IL N'Y A PLUS D'ENNEMI";
+}
+
+void Map::run()
+{
+    this->emitNoCrocoLeft();
+}
+
+/** ---------- SIGNAL ---------- **/
 
 void Map::emitNoCrocoLeft()
 {

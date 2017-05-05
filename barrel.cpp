@@ -89,7 +89,7 @@ void Barrel::moveTowardsMouse()
         changeRotation();
         this->rotation = false;
     }
-    if(dist > 10 && !this->isCollidingWithMap() /**&& !this->isCollidingWithCroco() **/)
+    if(dist > 10 && !this->isCollidingWithMap() && !this->isCollidingWithCroco())
     {
         changeRotation();
         this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+moveX, this->getYpos()+moveY);
@@ -114,6 +114,17 @@ bool Barrel::isCollidingWithMap()
             }
         }
     }
+    return false;
+}
+
+bool Barrel::isCollidingWithCroco()
+{
+    for (int i = 0; i < this->scene->getGame()->getMap()->getCrocoVect()->size(); ++i)
+        if (this->getSprite()->getPixmapItem()->collidesWithItem(this->scene->getGame()->getMap()->getCrocoVect()->at(i)->getSprite()->getPixmapItem()))
+        {
+            this->scene->getGame()->getMap()->getCrocoVect()->at(i)->destroy();
+            return true;
+        }
     return false;
 }
 

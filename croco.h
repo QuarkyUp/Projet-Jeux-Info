@@ -21,7 +21,7 @@ public:
     /** METHODS **/
     void initialiseCrocoPosition();
     void drawCroco();
-    void removeCroco();
+    void destroy();
     void changeRotation();
     void moveTowardsPlayer();
     void updatePos();

@@ -1,5 +1,6 @@
 #include "scene.h"
 #include "game.h"
+#include "barrel.h"
 
 #include <QDebug>
 
@@ -122,27 +123,6 @@ void Scene::keyPressEvent(QKeyEvent* event)
     {
       this->mvt->replace(3, true);
     }
-    /*
-    if (event->key() == Qt::Key_Space)
-    {
-        double dx = this->lastMousePosX - game->getPlayer()->getXpos();
-        double dy = this->lastMousePosY - game->getPlayer()->getYpos();
-
-        double dist = sqrt(dx*dx + dy*dy);
-        double moveX = (dx/dist)*4;
-        double moveY = (dy/dist)*4;
-
-        if((dist > 10))
-        {
-            game->getPlayer()->getCurrentPos()->setX(game->getPlayer()->getXpos());
-            game->getPlayer()->getCurrentPos()->setY(game->getPlayer()->getYpos());
-
-            game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getXpos()+moveX, game->getPlayer()->getYpos()+moveY);
-
-            if (this->collisonMur())
-                game->getPlayer()->getSprite()->getPixmapItem()->setOffset(game->getPlayer()->getCurrentPos()->x(), game->getPlayer()->getCurrentPos()->y());
-        }
-    } */
 }
 
 void Scene::keyReleaseEvent(QKeyEvent *event)
@@ -174,7 +154,8 @@ void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event )
 
 void Scene::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
 {
-    this->game->createBarrel(new QPointF(event->scenePos()));
+//    this->game->createBarrel(new QPointF(event->scenePos()));
+    new Barrel(new QPointF(event->scenePos()), this);
 }
 
 /** ---------- SLOTS ---------- **/

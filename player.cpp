@@ -9,6 +9,7 @@ Player::Player(Scene* scene)
     playerSprite = new Sprite(":/resources/resources/donkeyUp.png", 600, 200);
     this->current_position = new QPoint(this->getSprite()->getPixmapItem()->sceneBoundingRect().x(), this->getSprite()->getPixmapItem()->sceneBoundingRect().y());
     this->createLifebar();
+    this->draw();
 }
 
 Player* Player::newPlayer(Scene * scene)
@@ -32,6 +33,12 @@ qreal Player::getXpos()
 qreal Player::getYpos()
 {
     return this->getSprite()->getPixmapItem()->sceneBoundingRect().y();
+}
+
+void Player::draw()
+{
+    this->scene->addItem(this->getSprite()->getPixmapItem());
+    this->scene->addItem(this->getLifebar());
 }
 
 QGraphicsRectItem *Player::getLifebar()

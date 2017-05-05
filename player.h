@@ -16,6 +16,7 @@ public:
       qreal getXpos();
       qreal getYpos();
 
+      void draw();
       void moveUp();
       void moveDown();
       void moveLeft();

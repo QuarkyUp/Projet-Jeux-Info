@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 
     Scene* scene = new Scene();
     Game* game = new Game(scene);
+    game->start();
 
     return a.exec();
 }

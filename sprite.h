@@ -9,14 +9,12 @@ public:
     /** CONSTRUCTOR **/
     Sprite(QString, qreal, qreal);
 
-
+    /** METHODS **/
     QPixmap* getPixmap();
     QGraphicsPixmapItem* getPixmapItem();
 
-
 private:
     QGraphicsPixmapItem* pixmapItem;
-    QString path;
     QPixmap* pixmap;
 };
 

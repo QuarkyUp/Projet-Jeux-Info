@@ -21,7 +21,6 @@ Croco::Croco(Scene* scene)
 
 Croco::~Croco()
 {
-    this->removeCroco();
     disconnect(this->timer);
 }
 
@@ -32,8 +31,8 @@ void Croco::initialiseCrocoPosition()
     int posX, posY;
     do
     {
-        posX = rand() % GAME_SIZE;
-        posY = rand() % GAME_SIZE;
+        posX = rand() % GAME_SIZE + 1;
+        posY = rand() % GAME_SIZE + 1;
         this->crocoSprite = new Sprite(":/resources/resources/ennemiUp.png", posX, posY);
     }
     while (this->isCollidingWithMap());
@@ -44,9 +43,11 @@ void Croco::drawCroco()
     this->scene->addItem(this->crocoSprite->getPixmapItem());
 }
 
-void Croco::removeCroco()
+void Croco::destroy()
 {
-    this->scene->removeItem(this->crocoSprite->getPixmapItem());
+    this->scene->getGame()->getMap()->getCrocoVect()->remove(this->scene->getGame()->getMap()->getCrocoVect()->indexOf(this));
+    this->scene->removeItem(this->getSprite()->getPixmapItem());
+    delete(this);
 }
 
 void Croco::changeRotation()
@@ -94,10 +95,8 @@ void Croco::moveTowardsPlayer()
     this->changeRotation();
 
     if (!this->isCollidingWithPlayer())
-    {
         if (!this->isCollidingWithMap())
             this->move(moveX, moveY);
-    }
 }
 
 bool Croco::isCollidingWithMap()

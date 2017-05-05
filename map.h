@@ -18,15 +18,23 @@ public:
     ~Map();
 
     /** METHODS **/
+    void create();
+    void drawMap();
     void addPorte(int, int, QString);
     void addMur(int, int);
     void addSol(int, int);
+    void generateMap();
     void generateObstacle();
     void generateEnnemy();
 
     /** GETTER **/
     QVector<QVector<Element*>*>* getBackground();
     QVector<Croco*>* getCrocoVect();
+
+    /** SLOTS **/
+public slots:
+    void doNotHoldTheDoor();
+    void run();
 
     /** SIGNAL **/
 signals:
@@ -36,6 +44,7 @@ private:
     Scene* scene;
     QVector<QVector<Element*>*>* background;
     QVector<Croco*>* crocoVect;
+    QTimer* timer;
     void emitNoCrocoLeft();
 };
 
