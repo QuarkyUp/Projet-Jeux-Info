@@ -52,6 +52,7 @@ void Player::moveUp()
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos(), this->getYpos()-5);
     if (this->isCollidingWithMap())
         this->getSprite()->getPixmapItem()->setOffset(this->getCurrentPos()->x(), this->getCurrentPos()->y());
+    this->updateLifebarPos();
 }
 
 void Player::moveDown()
@@ -60,6 +61,7 @@ void Player::moveDown()
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos(), this->getYpos()+5);
     if (this->isCollidingWithMap())
         this->getSprite()->getPixmapItem()->setOffset(this->getCurrentPos()->x(), this->getCurrentPos()->y());
+    this->updateLifebarPos();
 }
 
 void Player::moveLeft()
@@ -68,6 +70,7 @@ void Player::moveLeft()
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos()-5, this->getYpos());
     if (this->isCollidingWithMap())
         this->getSprite()->getPixmapItem()->setOffset(this->getCurrentPos()->x(), this->getCurrentPos()->y());
+    this->updateLifebarPos();
 }
 
 void Player::moveRight()
@@ -76,6 +79,7 @@ void Player::moveRight()
     this->getSprite()->getPixmapItem()->setOffset(this->getXpos()+5, this->getYpos());
     if (this->isCollidingWithMap())
         this->getSprite()->getPixmapItem()->setOffset(this->getCurrentPos()->x(), this->getCurrentPos()->y());
+    this->updateLifebarPos();
 }
 
 QPoint* Player::getCurrentPos()
@@ -104,15 +108,15 @@ void Player::updatePos()
 {
     this->current_position->setX(this->getXpos());
     this->current_position->setY(this->getYpos());
-    this->lifebar->setRect(this->getXpos()-15, this->getYpos(), 10, 50);
 }
 
 void Player::createLifebar()
 {
-    this->lifebar = new QGraphicsRectItem(this->getXpos()-15, this->getYpos(), 10, 50);
+    this->lifebar = new QGraphicsRectItem(this->getXpos()-8, this->getYpos()-10, 50, 10);
     lifebar->setBrush(*new QBrush(Qt::red));
 }
 
-
-
-
+void Player::updateLifebarPos()
+{
+    this->lifebar->setRect(this->getXpos()-8, this->getYpos()-10, 50, 10);
+}

@@ -39,3 +39,8 @@ Player* Game::getPlayer()
     return this->myPlayer;
 }
 
+void Game::changeMap(QString)
+{
+
+}
+

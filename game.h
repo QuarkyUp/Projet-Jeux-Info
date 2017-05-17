@@ -25,6 +25,9 @@ public:
     Map* getMap();
     Player* getPlayer();
 
+public slots:
+    void changeMap(QString);
+
 private:
     Map* map;
     Player* myPlayer;

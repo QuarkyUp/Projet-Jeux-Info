@@ -23,6 +23,7 @@ public:
       void moveRight();
       void updatePos();
       void createLifebar();
+      void updateLifebarPos();
 
 
       bool isCollidingWithMap();

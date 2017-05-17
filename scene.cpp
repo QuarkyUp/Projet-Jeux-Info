@@ -100,9 +100,10 @@ void Scene::createMvtTimer()
     for (int i = 0; i < 5; ++i)
         this->mvt->append(false);
 
-    QTimer* timer = new QTimer();
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateKey()));
-    timer->start(30);
+    this->mvtTimer = new QTimer();
+    connect(this->mvtTimer, SIGNAL(timeout()), this, SLOT(updateKey()));
+    connect(this, SIGNAL(changeMapEvent(QString)), this->game, SLOT(changeMap(QString)));
+    this->mvtTimer->start(30);
 }
 
 void Scene::keyPressEvent(QKeyEvent* event)
@@ -185,6 +186,8 @@ void Scene::updateKey()
         }
 }
 
+/** ---------- GETTERS ---------- **/
+
 QGraphicsView* Scene::getView()
 {
     return this->view;
@@ -193,4 +196,18 @@ QGraphicsView* Scene::getView()
 Game* Scene::getGame()
 {
     return this->game;
+}
+
+/** ---------- SIGNAL ---------- **/
+
+void Scene::emitChangeMapEvent()
+{
+    if (this->getGame()->getPlayer()->getYpos < 0)
+        emit this->changeMapEvent("haut");
+    else if (this->getGame()->getPlayer()->getYpos() > GAME_SIZE)
+        emit this->changeMapEvent("bas");
+    else if (this->getGame()->getPlayer()->getXpos() < 0)
+        emit this->changeMapEvent("gauche");
+    else if (this->getGame()->getPlayer()->getXpos() > GAME_SIZE)
+        emit this->changeMapEvent("droite");
 }

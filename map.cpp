@@ -121,7 +121,15 @@ void Map::doNotHoldTheDoor()
 {
     disconnect(this->timer);
     delete(this->timer);
-    qDebug() << "IL N'Y A PLUS D'ENNEMI";
+
+    for (int i = 0; i < this->getBackground()->size(); ++i)
+        for (int j = 0; j < this->getBackground()->at(i)->size(); ++j)
+            if (this->getBackground()->at(i)->at(j)->getId() == "Porte")
+            {
+                this->scene->removeItem(this->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem());
+                this->getBackground()->at(i)->replace(j, new Element("Sol", i*PIXEL_SIZE, j*PIXEL_SIZE));
+                this->scene->addItem(this->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem());
+            }
 }
 
 void Map::run()

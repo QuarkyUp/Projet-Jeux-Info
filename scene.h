@@ -16,13 +16,6 @@ class Scene : public QGraphicsScene
 {
     Q_OBJECT
 
-private:
-    QGraphicsView* view;
-    Game* game;
-    qreal lastMousePosX;
-    qreal lastMousePosY;
-    QVector<bool>* mvt;
-
 public:
     /** CONSTRUCTOR **/
     Scene();
@@ -48,6 +41,18 @@ public:
 public slots:
     void updateKey();
 
+
+signals:
+    void changeMapEvent(QString);
+
+private:
+    QGraphicsView* view;
+    Game* game;
+    qreal lastMousePosX;
+    qreal lastMousePosY;
+    QVector<bool>* mvt;
+    QTimer* mvtTimer;
+    void emitChangeMapEvent();
 
 };
 
