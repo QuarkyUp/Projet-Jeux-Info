@@ -202,7 +202,7 @@ Game* Scene::getGame()
 
 void Scene::emitChangeMapEvent()
 {
-    if (this->getGame()->getPlayer()->getYpos < 0)
+    if (this->getGame()->getPlayer()->getYpos() < 0)
         emit this->changeMapEvent("haut");
     else if (this->getGame()->getPlayer()->getYpos() > GAME_SIZE)
         emit this->changeMapEvent("bas");

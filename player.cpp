@@ -1,6 +1,8 @@
 #include "player.h"
 #include "game.h"
 
+#include <QDebug>
+
 Player* Player::playerInstance;
 
 Player::Player(Scene* scene)
@@ -112,11 +114,25 @@ void Player::updatePos()
 
 void Player::createLifebar()
 {
-    this->lifebar = new QGraphicsRectItem(this->getXpos()-8, this->getYpos()-10, 50, 10);
+    this->lifebar = new QGraphicsRectItem(this->getXpos()-8, this->getYpos()-10, 2*this->playerLife, 10);
     lifebar->setBrush(*new QBrush(Qt::red));
 }
 
 void Player::updateLifebarPos()
 {
-    this->lifebar->setRect(this->getXpos()-8, this->getYpos()-10, 50, 10);
+    /*
+    if(this->playerLife <= 0)
+        this->lifebar->setRect(this->getXpos()-8, this->getYpos()-10, 0, 10);
+    else
+    */
+        qDebug() << this->playerLife;
+        this->lifebar->setRect(this->getXpos()-8, this->getYpos()-10, 2*this->playerLife, 10);
+
+    //this->lifebar->setRect(this->getXpos()-8, this->getYpos()-10, 50, 10);
+}
+
+void Player::reduceLife(float reduceLife)
+{
+    this->updateLifebarPos();
+    this->playerLife -= reduceLife;
 }

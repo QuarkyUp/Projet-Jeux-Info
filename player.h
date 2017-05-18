@@ -24,6 +24,7 @@ public:
       void updatePos();
       void createLifebar();
       void updateLifebarPos();
+      void reduceLife(float reduceLife);
 
 
       bool isCollidingWithMap();
@@ -41,6 +42,7 @@ private:
     Sprite* playerSprite;
     QPoint* current_position;
     QGraphicsRectItem* lifebar;
+    float playerLife = 25.0;
 };
 
 #endif // PLAYER_H

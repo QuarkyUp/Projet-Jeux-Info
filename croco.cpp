@@ -94,9 +94,12 @@ void Croco::moveTowardsPlayer()
 
     this->changeRotation();
 
-    if (!this->isCollidingWithPlayer())
+    if (!this->isCollidingWithPlayer()) {
         if (!this->isCollidingWithMap())
             this->move(moveX, moveY);
+    }
+    else if (this->isCollidingWithPlayer())
+        this->scene->getGame()->getPlayer()->reduceLife(0.5);
 }
 
 bool Croco::isCollidingWithMap()
