@@ -32,7 +32,8 @@ public:
     /** GETTERS **/
     Sprite* getSprite();
     QPoint* getCurrentPos();
-    QGraphicsRectItem* getLifebar();
+    QGraphicsRectItem* getLifebarGreen();
+    QGraphicsRectItem* getLifebarRed();
 
 private:
     Player(Scene* scene);
@@ -41,8 +42,9 @@ private:
     static Player* playerInstance;
     Sprite* playerSprite;
     QPoint* current_position;
-    QGraphicsRectItem* lifebar;
-    float playerLife = 25.0;
+    QGraphicsRectItem* lifebarGreen;
+    QGraphicsRectItem* lifebarRed;
+    float playerLife = 50.0;
 };
 
 #endif // PLAYER_H

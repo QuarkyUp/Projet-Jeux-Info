@@ -2,9 +2,10 @@
 #include <QDebug>
 
 /** ---------- CONSTRUCTOR / DESTRUCTOR ---------- **/
-Map::Map(Scene* scene)
+Map::Map(Scene* scene, QPoint* pos)
 {
     this->scene = scene;
+    this->positionInGame = new QPoint(pos->x(), pos->y());
 }
 
 Map::~Map()
@@ -41,6 +42,13 @@ void Map::drawMap()
     for(int i = 0; i < this->getBackground()->size(); i++)
         for(int j = 0; j < this->getBackground()->at(i)->size(); j++)
             this->scene->addItem(this->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem());
+}
+
+void Map::hideMap()
+{
+    for(int i = 0; i < this->getBackground()->size(); i++)
+        for(int j = 0; j < this->getBackground()->at(i)->size(); j++)
+            this->scene->removeItem(this->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem());
 }
 
 void Map::addMur(int i, int j)
@@ -155,4 +163,9 @@ QVector<QVector<Element*>*>* Map::getBackground()
 QVector<Croco*>* Map::getCrocoVect()
 {
     return this->crocoVect;
+}
+
+QPoint *Map::getPosInGame()
+{
+    return this->positionInGame;
 }

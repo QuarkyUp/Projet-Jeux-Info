@@ -14,12 +14,13 @@ class Map : public QObject
     Q_OBJECT
 public:
     /** CONSTRUCTOR **/
-    Map(Scene*);
+    Map(Scene*, QPoint*);
     ~Map();
 
     /** METHODS **/
     void create();
     void drawMap();
+    void hideMap();
     void addPorte(int, int, QString);
     void addMur(int, int);
     void addSol(int, int);
@@ -30,6 +31,7 @@ public:
     /** GETTER **/
     QVector<QVector<Element*>*>* getBackground();
     QVector<Croco*>* getCrocoVect();
+    QPoint* getPosInGame();
 
     /** SLOTS **/
 public slots:
@@ -46,6 +48,7 @@ private:
     QVector<Croco*>* crocoVect;
     QTimer* timer;
     void emitNoCrocoLeft();
+    QPoint* positionInGame;
 };
 
 #endif // MAP_H

@@ -37,13 +37,6 @@ void Scene::createView()
     view->show();
 }
 
-
-void Scene::createGame()
-{
-    this->game->generateMap();
-}
-
-
 void Scene::setGame(Game * game)
 {
     this->game = game;
@@ -102,7 +95,6 @@ void Scene::createMvtTimer()
 
     this->mvtTimer = new QTimer();
     connect(this->mvtTimer, SIGNAL(timeout()), this, SLOT(updateKey()));
-    connect(this, SIGNAL(changeMapEvent(QString)), this->game, SLOT(changeMap(QString)));
     this->mvtTimer->start(30);
 }
 
@@ -155,7 +147,6 @@ void Scene::mouseMoveEvent  ( QGraphicsSceneMouseEvent * event )
 
 void Scene::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
 {
-//    this->game->createBarrel(new QPointF(event->scenePos()));
     new Barrel(new QPointF(event->scenePos()), this);
 }
 
@@ -184,6 +175,7 @@ void Scene::updateKey()
             this->game->getPlayer()->moveRight();
             this->updateOrientation();
         }
+        this->emitChangeMapEvent();
 }
 
 /** ---------- GETTERS ---------- **/
@@ -203,11 +195,11 @@ Game* Scene::getGame()
 void Scene::emitChangeMapEvent()
 {
     if (this->getGame()->getPlayer()->getYpos() < 0)
-        emit this->changeMapEvent("haut");
+        emit changeMapEvent("haut");
     else if (this->getGame()->getPlayer()->getYpos() > GAME_SIZE)
-        emit this->changeMapEvent("bas");
+        emit changeMapEvent("bas");
     else if (this->getGame()->getPlayer()->getXpos() < 0)
-        emit this->changeMapEvent("gauche");
+        emit changeMapEvent("gauche");
     else if (this->getGame()->getPlayer()->getXpos() > GAME_SIZE)
-        emit this->changeMapEvent("droite");
+        emit changeMapEvent("droite");
 }

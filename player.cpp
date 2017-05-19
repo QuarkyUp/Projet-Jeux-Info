@@ -8,7 +8,7 @@ Player* Player::playerInstance;
 Player::Player(Scene* scene)
 {
     this->scene = scene;
-    playerSprite = new Sprite(":/resources/resources/donkeyUp.png", 600, 200);
+    playerSprite = new Sprite(":/resources/resources/donkeyUp.png", GAME_SIZE/2 - PIXEL_SIZE, 2*PIXEL_SIZE);
     this->current_position = new QPoint(this->getSprite()->getPixmapItem()->sceneBoundingRect().x(), this->getSprite()->getPixmapItem()->sceneBoundingRect().y());
     this->createLifebar();
     this->draw();
@@ -40,12 +40,18 @@ qreal Player::getYpos()
 void Player::draw()
 {
     this->scene->addItem(this->getSprite()->getPixmapItem());
-    this->scene->addItem(this->getLifebar());
+    this->scene->addItem(this->getLifebarGreen());
+    this->scene->addItem(this->getLifebarRed());
 }
 
-QGraphicsRectItem *Player::getLifebar()
+QGraphicsRectItem *Player::getLifebarGreen()
 {
-    return this->lifebar;
+    return this->lifebarGreen;
+}
+
+QGraphicsRectItem* Player::getLifebarRed()
+{
+    return this->lifebarRed;
 }
 
 void Player::moveUp()
@@ -91,14 +97,14 @@ QPoint* Player::getCurrentPos()
 
 bool Player::isCollidingWithMap()
 {
-    for (int i = 0; i < this->scene->getGame()->getMap()->getBackground()->size(); ++i)
+    for (int i = 0; i < this->scene->getGame()->getCurrentMap()->getBackground()->size(); ++i)
     {
-        for (int j =0; j < this->scene->getGame()->getMap()->getBackground()->at(i)->size(); ++j)
+        for (int j =0; j < this->scene->getGame()->getCurrentMap()->getBackground()->at(i)->size(); ++j)
         {
-            if (this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getId() == "Mur" ||
-                this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
+            if (this->scene->getGame()->getCurrentMap()->getBackground()->at(i)->at(j)->getId() == "Mur" ||
+                this->scene->getGame()->getCurrentMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
             {
-                if (this->getSprite()->getPixmapItem()->collidesWithItem(this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
+                if (this->getSprite()->getPixmapItem()->collidesWithItem(this->scene->getGame()->getCurrentMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
                     return true;
             }
         }
@@ -111,24 +117,32 @@ void Player::updatePos()
     this->current_position->setX(this->getXpos());
     this->current_position->setY(this->getYpos());
 }
-
 void Player::createLifebar()
 {
-    this->lifebar = new QGraphicsRectItem(this->getXpos()-8, this->getYpos()-10, 2*this->playerLife, 10);
-    lifebar->setBrush(*new QBrush(Qt::red));
+    qreal startGreenX = this->getXpos()-8;
+    qreal startGreenY = this->getYpos()-10;
+
+    this->lifebarGreen = new QGraphicsRectItem(startGreenX, startGreenY, this->playerLife, 10);
+    lifebarGreen->setBrush(*new QBrush(Qt::green));
+
+    this->lifebarRed = new QGraphicsRectItem(startGreenX + this->playerLife, startGreenY, 50.0 - this->playerLife, 10);
+    lifebarRed->setBrush(*new QBrush(Qt::red));
 }
 
 void Player::updateLifebarPos()
 {
-    /*
-    if(this->playerLife <= 0)
-        this->lifebar->setRect(this->getXpos()-8, this->getYpos()-10, 0, 10);
-    else
-    */
-        qDebug() << this->playerLife;
-        this->lifebar->setRect(this->getXpos()-8, this->getYpos()-10, 2*this->playerLife, 10);
+    qreal startGreenX = this->getXpos()-8;
+    qreal startGreenY = this->getYpos()-10;
 
-    //this->lifebar->setRect(this->getXpos()-8, this->getYpos()-10, 50, 10);
+    //update green
+    this->lifebarGreen->setRect(startGreenX, startGreenY, this->playerLife, 10);
+
+    //update red
+    this->lifebarRed->setRect(startGreenX + this->playerLife, startGreenY, 50.0 - this->playerLife, 10);
+
+    if (this->playerLife < 0)
+        exit(0);
+
 }
 
 void Player::reduceLife(float reduceLife)

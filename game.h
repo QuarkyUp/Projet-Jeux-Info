@@ -23,15 +23,18 @@ public:
 
     /** GETTER **/
     Map* getMap();
+    Map* getCurrentMap();
     Player* getPlayer();
 
 public slots:
     void changeMap(QString);
 
 private:
-    Map* map;
+    Map* currentMap;
+    QVector<Map*>* QMap;
     Player* myPlayer;
     Scene* scene;
+    QPoint* currentPosInSpace;
 
 
 };

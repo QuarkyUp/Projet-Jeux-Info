@@ -104,10 +104,10 @@ void Croco::moveTowardsPlayer()
 
 bool Croco::isCollidingWithMap()
 {
-    for (int i = 0; i < this->scene->getGame()->getMap()->getBackground()->size(); ++i)
-        for (int j =0; j < this->scene->getGame()->getMap()->getBackground()->at(i)->size(); ++j)
-            if (this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getId() == "Mur" || this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
-                if (this->getSprite()->getPixmapItem()->collidesWithItem(this->scene->getGame()->getMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
+    for (int i = 0; i < this->scene->getGame()->getCurrentMap()->getBackground()->size(); ++i)
+        for (int j =0; j < this->scene->getGame()->getCurrentMap()->getBackground()->at(i)->size(); ++j)
+            if (this->scene->getGame()->getCurrentMap()->getBackground()->at(i)->at(j)->getId() == "Mur" || this->scene->getGame()->getCurrentMap()->getBackground()->at(i)->at(j)->getId() == "Porte")
+                if (this->getSprite()->getPixmapItem()->collidesWithItem(this->scene->getGame()->getCurrentMap()->getBackground()->at(i)->at(j)->getSprite()->getPixmapItem()))
                     return true;
     return false;
 }
